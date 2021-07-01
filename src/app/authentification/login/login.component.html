@@ -6,18 +6,33 @@
   <mat-card-content>
     <form [formGroup]="loginForm">
       <mat-form-field class="form">
-        <input id="email" formControlName="email" matInput placeholder="Correo electronico" maxlength="30" required
-          pattern="[a-zA-Z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+        <input id="email" formControlName="email" matInput placeholder="ejemplo@ejemplo.com" required>
       </mat-form-field>
+      <mat-error
+        *ngIf="(loginForm.get('email').touched || loginForm.get('email').dirty) && 
+        loginForm.get('email').errors && loginForm.get('email').invalid">
+        <div *ngIf="loginForm.get('email').hasError('required')" class="error">Campo email es requerido
+        </div>
+        <div *ngIf="loginForm.get('email').hasError('pattern')" class="error">El formato de email es
+          incorrecto</div>
+      </mat-error>
       <br>
       <mat-form-field class="form">
         <input matInput id="password" formControlName="password" placeholder="Contraseña"
-          [type]="hide ? 'password' : 'text'" type="password">
+          [type]="hide? 'password' : 'text'" type="password">
         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
           [attr.aria-pressed]="hide">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
+      <mat-error
+        *ngIf="(loginForm.get('password').touched || loginForm.get('password').dirty) && 
+        loginForm.get('password').errors && loginForm.get('password').invalid">
+        <div *ngIf="loginForm.get('password').hasError('required')" class="error">Campo contraseña es requerido
+        </div>
+        <div *ngIf="loginForm.get('password').hasError('minlength')" class="error">Se requieren mínimo 7 caracteres</div>
+        <div *ngIf="loginForm.get('password').hasError('maxlength')" class="error">Se requieren máximo 30 caracteres</div>
+      </mat-error>
       <br><br>
       <button mat-mat-raised-button class="button" *ngIf="loading">
         <mat-icon>
@@ -26,10 +41,11 @@
         </mat-icon>Iniciar Sesión
       </button>
       <button mat-raised-button class="button" (click)="login(loginForm.value)"
-        *ngIf="loading==false">Iniciar Sesión</button>
+      [disabled]="!loginForm.valid" *ngIf="loading==false">Iniciar
+        Sesión</button>
       <br><br>
-      <label class="center"> No tiene una cuenta? 
-        <button mat-button class="account" (click)='createUser()'>Crear Cuenta</button>
+      <label class="center"> No tiene una cuenta?
+        <button mat-button class="account" (click)='goToCreateUser()'>Crear Cuenta</button>
       </label>
     </form>
   </mat-card-content>

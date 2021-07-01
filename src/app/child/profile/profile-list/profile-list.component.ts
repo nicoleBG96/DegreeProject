@@ -101,7 +101,7 @@ export class ProfileListComponent implements OnInit {
   }
 
   async active() {
-    this.authService.getCurrentUser().pipe(
+    this.authService.getUser().pipe(
       tap(current => {
         if(current)
           this.userService.getUser().subscribe(item => {

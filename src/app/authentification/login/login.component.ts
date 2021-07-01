@@ -4,45 +4,56 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // Service
 import { AuthentificationService } from '../authentification.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
-  loginForm: FormGroup;
-  errorMessage: string;
-  userList: any = [];
-  user: any = {};
-  loading = false;
+  public loginForm: FormGroup;
+  public errorMessage: string;
+  public userList: any = [];
+  public user: any = {};
+  public loading = false;
 
-  constructor(private authService: AuthentificationService, private router: Router, private fb: FormBuilder,
-    private toastrService: ToastrService) {
+  constructor(private authService: AuthentificationService, private router: Router, 
+    private fb: FormBuilder) {
+  }
+
+  ngOnInit(): void {
     this.createForm();
   }
 
-  createForm() {
+  private createForm(): void {
     this.loginForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
+      email: ['', [Validators.required, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      password: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]]
     });
   }
 
-  login(value) {
+  public login(loginForm: FormGroup): void {
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
-      this.authService.loginWhitEmail(value).then((res) => {
+      this.authService.loginWhitEmail(loginForm).then((res) => {
       window.location.replace('/');
     });
     }, 700);
     
   }
 
-  createUser() {
+  public get email() {
+    return this.loginForm.get('email');
+  }
+
+  public get password() {
+    return this.loginForm.get('password');
+  }
+
+
+  public goToCreateUser(): void {
     this.router.navigate(['users/createUser'])
   }
 }
