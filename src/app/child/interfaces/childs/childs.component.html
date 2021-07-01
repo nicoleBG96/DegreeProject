@@ -1,0 +1,25 @@
+<h1 class="title"> Infantes </h1>
+<a href="/child/registerChild"><button mat-fab class="button">
+        <i class="material-icons">add_circle_outline</i>
+    </button></a>
+<br><br>
+<select class="select" matNativeControl required>
+    <option value="fecha">Fecha</option>
+    <option value="edad">Edad</option>
+    <option value="gestion">Gestión</option>
+    <option value="estado">Estado</option>
+    <option value="sexo">Sexo</option>
+</select>
+<br><br>
+<mat-card class="cards">
+    <mat-toolbar>
+        <a href="/child/registerChild"><button mat-button class="subtitle">Registro</button></a>
+        <a href="/child/registerMedicalRecord"><button mat-button class="subtitle">Ficha</button></a>
+        <a href="/child/registerProgress"><button mat-button class="subtitle">Desarrollo</button></a>
+    </mat-toolbar>
+    <br>
+    <label>Nombre:</label><br>
+    <label>Apelido Paterno:</label><br>
+    <label>Apelido Materno:</label><br>
+    <label>Edad:</label>
+</mat-card>

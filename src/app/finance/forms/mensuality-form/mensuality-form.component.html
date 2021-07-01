@@ -1,0 +1,76 @@
+<mat-card class="card">
+    <h1 class="title">Formulario Mensulidad</h1>
+    <br>
+    <form #formNew="ngForm" novalidate>
+        <div class="grid_container">
+            <div class="left">
+                <label class="text">Nombre </label>
+                <label class="text_input">{{mensuality.firstName}}</label>
+                <br><br>
+                <label class="text">Apellido Paterno</label>
+                <label class="text_input">{{mensuality.lastName}}</label>
+                <br><br>
+                <label class="text">Apellido Materno</label>
+                <label class="text_input">{{mensuality.mothersLastName}}</label>
+                <br><br>
+                <label class="text">Tutor: </label>
+                <label class="text_input">{{mensuality.nameOfTutor}}</label>
+                <br><br>
+                <label class="text">Celular: </label>
+                <label class="text_input">{{mensuality.phone}}</label>
+                <br><br>
+                <label class="text">Fecha Admisión: </label>
+                <label class="text_input">{{mensuality.admissionDate | date:'dd - MMM - yyyy'}}</label>
+            </div>
+            <div class="left">
+                <mat-form-field class="text">
+                    <input class="input" [(ngModel)]="mensuality.date" type="date" name="date" #date="ngModel" id="date"
+                        matInput placeholder="Fecha">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="text">
+                    <mat-label>Mes a Pagar</mat-label>
+                    <select matNativeControl required [(ngModel)]="mensuality.month"
+                        [ngModelOptions]="{standalone: true}">
+                        <option value="enero">Enero</option>
+                        <option value="Febrero">Febrero</option>
+                        <option value="marzo">Marzo</option>
+                        <option value="abril">Abril</option>
+                        <option value="mayo">Mayo</option>
+                        <option value="junio">Junio</option>
+                        <option value="julio">Julio</option>
+                        <option value="agosto">Agosto</option>
+                        <option value="septiembre">Septiembre</option>
+                        <option value="octubre">Octubre</option>
+                        <option value="noviembre">Noviembre</option>
+                        <option value="diciembre">Diciembre</option>
+                    </select>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="text">
+                    <input class="input" [(ngModel)]="mensuality.year" type="text" name="year" #year="ngModel" id="year"
+                        matInput placeholder="Año">
+                </mat-form-field>
+                <div *ngIf="(year.touched || year.dirty) && !year.valid && year.errors" class="text-alert">
+                    <div *ngIf="year.errors.required">Se requiere año</div>
+                    <div *ngIf="year.errors.pattern">Este campo solo acepta números</div>
+                </div>
+                <br>
+                <mat-form-field class="text">
+                    <input class="input" [(ngModel)]="mensuality.amount" type="text" name="amount" #amount="ngModel"
+                        id="amount" required pattern="^[0-9]*$" matInput placeholder="Monto">
+                </mat-form-field>
+                <div *ngIf="(amount.touched || amount.dirty) && !amount.valid && amount.errors" class="text-alert">
+                    <div *ngIf="amount.errors.required">Se requiere monto</div>
+                    <div *ngIf="amount.errors.pattern">Este campo solo acepta números</div>
+                </div>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="button" type="submit" mat-raised-button
+                (click)="saveMensuality()">Guardar</button>
+            <button class="cancel_button" type="button" mat-raised-button
+                (click)='goToProfile()'>Cancelar</button>
+        </div>
+    </form>
+</mat-card>

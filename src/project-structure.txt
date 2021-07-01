@@ -1,0 +1,98 @@
+● src
++---● app
+|   +--● authentification
+|   |   +--● login
+|   |   |   |--login.component.ts|.html|.css
+|   |   +--● shared
+|   |   |   +--● service
+|   |   |   |   |--authentification.service.ts
+|   |   |--authentification.routing.ts
+|   |   |--authentification.module.ts
+|   |   |   |
+|   +--● core
+|   |   +--● navbar
+|   |   |   |--navbar.component.ts|.html|.css
+|   |   +--● footer
+|   |   |   |--footer.component.ts|.html|.css
+|   |   |--core.module.ts
+|   |   |   
+|   +--● shared
+|   |   +--● models
+|   |   |   |--child-register.model.ts
+|   |   |   |--medical-record.model.ts 
+|   |   |   |--progress-child.model.ts
+|   |   |   |--donations.model.ts
+|   |   |   |--income.model.ts
+|   |   |   |--expenses.model.ts
+|   |   |   |--financial-report.model.ts
+|   |   |   |--user.model.ts
+|   |   +--● services
+|   |   |   |--child-register.service.ts
+|   |   |   |--medical-record.service.ts 
+|   |   |   |--progress-child.service.ts
+|   |   |   |--donations.service.ts
+|   |   |   |--income.service.ts
+|   |   |   |--expenses.service.ts
+|   |   |   |--financial-report.service.ts
+|   |   |   |--user.service.ts
+|   |   |--shared.module.ts
+|   |   |   
+|   +--● child
+|   |   +--● child-register
+|   |   |   |--create.component.ts|.html|.css
+|   |   |   |--edit.component.ts|.html|.css
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--list.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   +--● medical-record
+|   |   |   |--create.component.ts|.html|.css
+|   |   |   |--edit.component.ts|.html|.css
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   +--● progress-child
+|   |   |   |--create.component.ts|.html|.css
+|   |   |   |--edit.component.ts|.html|.css
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   |--child.module.ts 
+|   |   |--child.routing.ts
+|   |   |   
+|   +--● finance
+|   |   +--● mensualities
+|   |   |   |--create.component.ts|.html|.css
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--list.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   |   |--generate.component.ts|.html|.css
+|   |   +--● expenses
+|   |   |   |--create.component.ts|.html|.css
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--list.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   |   |--generate.component.ts|.html|.css
+|   |   +--● donations
+|   |   |   |--create.component.ts|.html|.css
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--list.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   |   |--generate.component.ts|.html|.css
+|   |   |--finance.module.ts 
+|   |   |--finance.routing.ts
+|   |   |   
+|   +--● reports
+|   |   +--● financial-report
+|   |   |   |--form.component.ts|.html|.css
+|   |   |   |--list.component.ts|.html|.css
+|   |   |   |--generate.component.ts|.html|.css
+|   |   |   |--profile.component.ts|.html|.css
+|   |   |--reports.module.ts 
+|   |   |--reports.routing.ts
+|   |   |
+|   |+--● user
+|   |   |--create.component.ts|.html|.css
+|   |   |--edit.component.ts|.html|.css
+|   |   |--delete.component.ts|.html|.css
+|   |   |--list.component.ts|.html|.css
+|   |   |   
+|   |--app.module.ts
+|   |--app.routing.ts

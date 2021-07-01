@@ -1,0 +1,94 @@
+.card {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    margin-left: 30%;
+    color:  #1d1545;
+}
+
+.input {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;   
+    margin-left: 3px; 
+}
+
+.text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.text-alert {
+    color: red;
+}
+
+.grid_container {
+    display: grid;
+    grid-template-columns: 35% 30% 35%;
+    margin-top: 20px;
+}
+
+.left {
+    margin-left: 15%;
+}
+
+.center {
+    margin-left: 10%;
+}
+
+.right {          
+    margin-left: 20%;
+}
+
+.buttons {
+    margin-left: 35%;
+}
+
+button {
+    margin-right: 15px;
+    color: #315172;
+    border: 1px solid #315172;
+}
+
+.button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #315172;
+}
+
+.cancel_button {
+    color: #bd1b0f;
+    border: 1px solid #bd1b0f;
+}
+
+.cancel_button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #bd1b0f;
+}
+
+.subtitle {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 25px;
+}
+
+.size-weight {
+    margin-left: 15%;
+    width: 70%;
+}
+
+.grid_second_container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 5px;
+}
+
+.textBox {
+    width: 40%;
+}
+    
+

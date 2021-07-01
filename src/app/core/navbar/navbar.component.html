@@ -1,0 +1,69 @@
+<mat-toolbar class="toolbar">
+    <div>
+        <button mat-button class="space" *ngIf="home">
+            <mat-icon>
+                <mat-spinner color="accent" diameter="20">
+                </mat-spinner>
+            </mat-icon>Inicio
+        </button>
+        <button mat-button class="space" *ngIf="home ==false" (click)="goHome()">Inicio</button>
+    </div>
+    <div *ngIf="isLogged && isDisable && (role=='admin' || role == 'med' || role=='psico' || role=='cont')">
+        <button mat-button class="title" *ngIf="profiles">
+            <mat-icon>
+                <mat-spinner color="accent" diameter="20">
+                </mat-spinner>
+            </mat-icon>Afiliados
+        </button>
+        <button mat-button class="title" *ngIf="profiles == false" (click)='goToProfiles()'>Afiliados</button>
+    </div>
+    <div *ngIf="isLogged && isDisable && (role=='admin' || role=='cont')">
+        <button mat-button *ngIf="report" class="title">
+            <mat-icon>
+                <mat-spinner color="accent" diameter="20">
+                </mat-spinner>
+            </mat-icon>
+            Reportes
+        </button>
+        <button mat-button [matMenuTriggerFor]="reportes" class="title" *ngIf="report==false">Reportes</button>
+    </div>
+    <mat-menu #reportes="matMenu" >
+        <button mat-menu-item class="subtitle" (click)='goToReport()'>Reporte Financiero</button>
+        <button mat-menu-item class="subtitle" [matMenuTriggerFor]="ingresos" class="subtitle">Ingresos</button>
+        <mat-menu #ingresos="matMenu">
+            <button mat-menu-item class="subtitle" (click)='goToIncomes()'>Ingresos</button>
+            <button mat-menu-item class="subtitle" (click)='goToMensualities()'>Mensualidades</button>
+            <button mat-menu-item class="subtitle" (click)='goToDonations()'>Donaciones</button>
+        </mat-menu>
+        <button mat-menu-item class="subtitle" (click)='goToExpenses()'>Egresos</button>
+    </mat-menu>
+    <div *ngIf="isLogged && role=='admin' && isDisable">
+        <button mat-button *ngIf="user" class="title">
+            <mat-icon>
+                <mat-spinner color="accent" diameter="20">
+                </mat-spinner>
+            </mat-icon>
+            Usuarios
+        </button>
+        <button mat-button class="title" *ngIf="user==false" (click)='goToUsers()'>Usuarios</button>
+    </div>
+    <button mat-fab class="button" [matMenuTriggerFor]="account" *ngIf="isLogged && role=='admin' && isDisable">
+        <span class="material-icons"> person </span>
+    </button>
+    <button mat-fab class="button-logout-med" [matMenuTriggerFor]="account" *ngIf="isLogged && (role=='med' || role=='psico') && isDisable">
+        <span class="material-icons"> person </span>
+    </button>
+    <button mat-fab class="button-logout-cont" [matMenuTriggerFor]="account" *ngIf="isLogged && role=='cont' && isDisable">
+        <span class="material-icons"> person </span>
+    </button>
+    <button mat-fab class="button-logout" [matMenuTriggerFor]="account" *ngIf="isLogged == false">
+        <span class="material-icons"> person </span>
+    </button>
+    <button mat-fab class="button-logout-disable" [matMenuTriggerFor]="account" *ngIf="isDisable == false && isLogged">
+        <span class="material-icons"> person </span>
+    </button>
+    <mat-menu #account="matMenu">
+        <button mat-menu-item class="subtitle" (click)='goToLogin()' *ngIf="!isLogged">Iniciar Sesión</button>
+        <button mat-menu-item class="subtitle" (click)='logout()' *ngIf="isLogged">Cerrar Sesión</button>
+    </mat-menu>
+</mat-toolbar>

@@ -1,0 +1,35 @@
+<h1 class="title">Registro Egresos</h1>
+<br>
+<button mat-stroked-button class="space" (click)="export()">Exportar
+    <i class="material-icons"> file_copy </i>
+</button>
+<button mat-fab class="button" (click)="createExpense()" *ngIf="role=='admin'">
+    <i class="material-icons">add_circle_outline</i>
+</button>
+<br>
+<input type="text" placeholder="Rango de fechas" style="width:340px" class="date" bsDaterangepicker
+    (bsValueChange)="filterByDate($event)" [(ngModel)]="filterDate"
+    [bsConfig]="{showWeekNumbers:false, adaptivePosition: true, isAnimated:true, containerClass: 'theme-blue', dateInputFormat: 'DD-MM-YYYY'}">
+
+<i class="material-icons md-30"> calendar_today</i>
+<br><br>
+<mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+<table mat table class="table" *ngIf="loading == false">
+    <thead>
+        <th class="subtitle" scope="col">Fecha </th>
+        <th class="subtitle" scope="col">Detalle </th>
+        <th class="totalExpense" scope="col">Monto </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let expenses of expensesList">
+            <td class="text">{{expenses.date | date:'dd-MM-yyyy'}}</td>
+            <td class="text">{{expenses.description}}</td>
+            <td class="expense">{{expenses.amount}}</td>
+        </tr>
+        <tr>
+            <td class="result">Total</td>
+            <td></td>
+            <td class="total">{{total}}</td>
+        </tr>
+    </tbody>
+</table>

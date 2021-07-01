@@ -1,0 +1,100 @@
+.card {
+    width: 70%;
+    margin-left: 15%;
+    padding-bottom: 20px;
+}
+
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    color:  #1d1545;
+    margin-left: 30%;
+}
+
+.input {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 22px;
+}
+
+.text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    margin-left: 5%;
+}
+
+.text-alert {
+    color: red;
+}
+
+.grid_container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.grid_margin_left {
+    margin-left: 15%;
+    margin-top: 25%;
+}
+
+.grid_margin_right {
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.compromise_grid {
+    margin-left: 5%;
+    width: 90%;
+}
+
+.subtitle {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+}
+
+.option {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+}
+
+.compromise {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.rules {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    margin-left: 5%;
+}
+
+.buttons {
+    margin-left: 35%;
+}
+
+.button {
+    margin-right: 25px;
+    color: #315172;
+    border: 1px solid #315172;
+}
+
+.button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #315172;
+}
+
+.cancel_button {
+    color: #bd1b0f;
+    border: 1px solid #bd1b0f;
+}
+
+.cancel_button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #bd1b0f;
+}
+
+.photo-container{
+    margin: 5px 0;
+}

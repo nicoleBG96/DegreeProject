@@ -1,0 +1,42 @@
+<h1 class="title">Ingresos</h1>
+<br>
+<button mat-stroked-button class="space" (click)="export()">Exportar
+    <i class="material-icons"> file_copy </i>
+</button>
+<br>
+<input matInput type="text" placeholder="Rango de fechas" style="width:340px" class="date" bsDaterangepicker
+    (bsValueChange)="filterByDate($event)" [(ngModel)]="filterDate" [bsConfig]="{showWeekNumbers:false, adaptivePosition: true, 
+    isAnimated:true, containerClass: 'theme-blue', dateInputFormat: 'MM-YYYY', startView:'year'}">
+
+<i class="material-icons md-30"> calendar_today</i>
+<br><br>
+<mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+<table mat table *ngIf="loading == false" class="table">
+    <thead>
+        <th class="subtitle">Fecha</th>
+        <th class="subtitle">Descripcion</th>
+        <th class="resultTitle">Monto Ingreso</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let aux of incomeList">
+            <td class="text">{{aux.date | date:'dd/MM/yyyy'}}</td>
+            <div *ngIf="aux.type == 'mensuality'">
+                <td class="text">{{aux.firstName}} {{aux.lastName}} pago {{aux.month}} {{aux.year}}</td>
+            </div>
+            <div *ngIf="aux.type != 'mensuality'">
+                <td class="text">{{aux.description}}</td>
+            </div>
+            <td class="amount">{{aux.amount}}</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="total">Total</td>
+            <td></td>
+            <td class="result">{{totalIncome}}</td>
+        </tr>
+    </tbody>
+</table>

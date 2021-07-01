@@ -1,0 +1,78 @@
+.subtitle {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 800;
+}
+
+.subtitle-space {
+    margin-right: 5%;
+}
+
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.buttons {
+    margin-left: 25%;
+}
+
+.button {
+    margin-right: 5px;
+    color: #315172;
+    border: 1px solid #315172;
+}
+
+.button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #315172;
+}
+
+.cancel_button {
+    color: #bd1b0f;
+    border: 1px solid #bd1b0f;
+}
+
+.cancel_button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #bd1b0f;
+}
+
+.card {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.grid_container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.left {
+    margin-left: 15%;
+}
+
+.right {
+    margin-left: 35%;
+}
+
+.image {
+    margin-left: 75%;
+}
+
+.button_enable {
+    color: #ff7847;
+    border: 1px solid #ff7847;
+    font-weight: 400;
+}
+
+.button_enable:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #ff7847;
+}

@@ -1,0 +1,76 @@
+<mat-card class="card">
+    <mat-card-header>
+        <label class="title">Ficha Médica</label>
+    </mat-card-header>
+    <mat-card-content>
+        <form #formNew="ngForm" novalidate>
+            <div class="grid_container">
+                <div class="left">
+                    <label class="text">Nombre:</label>
+                    <label class="input">{{child.firstName}}</label>
+                    <br>
+                    <label class="text">Apellido Paterno:</label>
+                    <label class="input">{{child.lastName}}</label>
+                    <br>
+                    <label class="text">Apellido Materno:</label>
+                    <label class="input">{{child.mothersLastName}}</label>
+                    <br>
+                    <label class="text">Edad:</label>
+                    <label class="input">{{calculateAge(child.birthDate)}}</label>
+                    <br>
+                    <label class="text">Sexo:</label>
+                    <label class="input">{{child.sex}}</label>
+                </div>
+                <div class="left">
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.address" type="text" name="address" #address="ngModel"
+                            id="address" maxlength="30" required pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ #0-9]*$"
+                            matInput placeholder="Direccion">
+                    </mat-form-field>
+                    <div *ngIf="(address.touched || address.dirty) && !address.valid && address.errors"
+                        class="text-alert">
+                        <div *ngIf="address.errors.required">Se requiere direccion</div>
+                        <div *ngIf="address.errors.pattern">Este campo acepta letras y números</div>
+                    </div>
+                    <br><br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.date" type="date" name="date" #date="ngModel" id="date"
+                            matInput placeholder="Fecha de Revision">
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <mat-form-field class="description">
+                <textarea type="text" class="input" name="description" id="description"
+                    [(ngModel)]="child.description" #description="ngModel" required
+                    pattern="[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ,.0-9]*$" matInput
+                    placeholder="Descripcion"></textarea>
+            </mat-form-field>
+            <div *ngIf="(description.touched || description.dirty) && !description.valid && description.errors"
+                class="errorBar">
+                <div class="errorText" *ngIf="description.errors.required">Se requiere descripcion</div>
+                <div class="errorText" *ngIf="description.errors.pattern">Este campo acepta letras y
+                    números</div>
+            </div>
+            <br>
+            <mat-form-field class="description">
+                <textarea type="text" class="input" name="vaccines" id="vaccines" [(ngModel)]="child.vaccines"
+                    #vaccines="ngModel" required pattern="[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ,.0-9]*$" matInput
+                    placeholder="Vacunas"></textarea>
+            </mat-form-field>
+            <div *ngIf="(vaccines.touched || vaccines.dirty) && !vaccines.valid && vaccines.errors"
+                class="errorBar">
+                <div class="errorText" *ngIf="vaccines.errors.pattern">Este campo acepta letras y
+                    números</div>
+            </div>
+            <br><br>
+            <div class="buttons">
+                <button *ngIf="!isEdit" class="button" type="submit" mat-raised-button
+                    (click)="saveMedicalRecord()">Guardar</button>
+                <button *ngIf="isEdit" class="button" type="submit" mat-raised-button
+                    (click)="editMedicalRecord(child)">Actualizar</button>
+                <button (click)="goToProfiles()" class="cancel_button" type="button" mat-raised-button>Cancelar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

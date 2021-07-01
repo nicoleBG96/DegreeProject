@@ -1,0 +1,68 @@
+.card {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.subtitle {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 25px;
+}
+
+.text {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    line-height: 25px;
+    margin-left: 2px;
+}
+
+.subtitle-space {
+    margin-right: 10%;
+}
+
+.title {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.buttons {
+    margin-left: 30%;
+}
+
+.button {
+    margin-right: 5px;
+    color: #315172;
+    border: 1px solid #315172;
+}
+
+.button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #315172;
+}
+
+.cancel_button {
+    color: #bd1b0f;
+    border: 1px solid #bd1b0f;
+}
+
+.cancel_button:hover {
+    color: white;
+    border: 1px solid white;
+    background-color: #bd1b0f;
+}
+
+.grid_container {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-left: 10%;
+    margin-top: 20px;
+}
+
+.mat-spinner {
+    margin-left: 45%;
+    margin-top: 5%;
+}

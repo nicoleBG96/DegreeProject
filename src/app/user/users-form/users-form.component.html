@@ -1,0 +1,63 @@
+<mat-card class="card">
+  <mat-card-header>
+    <mat-card-title class="title">Crea tu cuenta</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form #formNew="ngForm" novalidate>
+      <mat-form-field class="text">
+        <input class="input" [(ngModel)]="user.firstName" type="text" name="firstName" #firstName="ngModel"
+          id="firstName"  maxlength="20" required pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇç]*$" matInput placeholder="Nombre">
+      </mat-form-field>
+      <div *ngIf="(firstName.touched || firstName.dirty) && !firstName.valid && firstName.errors" class="text-alert">
+        <div *ngIf="firstName.errors.required">Se requiere nombre</div>
+        <div *ngIf="firstName.errors.pattern">Este campo solo acepta letras</div>
+      </div>
+      <br>
+      <mat-form-field class="text">
+        <input class="input" [(ngModel)]="user.lastName" type="text" name="lastName" #lastName="ngModel"
+          id="lastName"  maxlength="20" required pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇç]*$" matInput placeholder="Apellido">
+      </mat-form-field>
+      <div *ngIf="(lastName.touched || lastName.dirty) && !lastName.valid && lastName.errors" class="text-alert">
+        <div *ngIf="lastName.errors.required">Se requiere apellido</div>
+        <div *ngIf="lastName.errors.pattern">Este campo solo acepta letras</div>
+      </div>
+      <br>
+      <mat-form-field class="text">
+        <input class="input" [(ngModel)]="user.email" type="email" name="email" #email="ngModel" id="email"
+         matInput placeholder="Email" maxlength="30" required pattern="[a-zA-Z0-9._-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+      </mat-form-field>
+      <div *ngIf="email.errors &&(email.touched || email.dirty)" class ="text-alert">
+        <div [hidden]="!email.errors?.pattern">Email inválido</div>
+        <div *ngIf="email.errors.required">Se requiere email</div> 
+    </div>
+    <br>
+    <mat-form-field class="text">
+      <input class="input" [(ngModel)]="user.password" type="password" name="password" #password="ngModel" id="password"
+       matInput placeholder="Contraseña" minlength="8" required pattern="^[a-zA-Z0-9.-_!¡]*$" [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div *ngIf="(password.touched || password.dirty) && !password.valid && password.errors" class ="text-alert">
+      <div *ngIf="password.errors.required">Se requiere contraseña</div>
+      <div *ngIf="password.errors.pattern">caracter inválido</div>
+      <div *ngIf="password.errors.minlength">{{password.errors.minlength.requiredLength}} mínimo de caracteres.</div>
+    </div>
+    <br>
+    <mat-form-field class="text">
+        <mat-label>Cargo</mat-label>
+        <select matNativeControl required [(ngModel)]="user.position" [ngModelOptions]="{standalone: true}">
+          <option value="administrador">Administrador</option>
+          <option value="psicologo">Psicologo</option>
+          <option value="medico">Medico</option>
+          <option value="contador">Contador</option>
+        </select>
+    </mat-form-field>
+    <br><br>
+    <div class="buttons">
+      <button type="submit" (click)="save()" class="button" mat-raised-button>Guardar</button>
+      <button class="cancel_button" mat-raised-button (click)='goToLogin()'>Cancelar</button>
+    </div>
+    </form>
+  </mat-card-content>
+</mat-card>

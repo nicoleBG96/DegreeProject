@@ -1,0 +1,50 @@
+<mat-card class="card">
+    <mat-card-header>
+        <label class="title">Registro Egresos</label>
+    </mat-card-header>
+    <br><br>
+    <mat-card-content>
+        <form #formNew="ngForm" novalidate>
+            <div class="grid_container">
+                <div>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="expenses.date" type="date" name="date" #date="ngModel"
+                            id="date" matInput placeholder="Fecha">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="expenses.amount" type="text" name="amount"
+                            #amount="ngModel" id="amount" required pattern="^[0-9]*$" matInput
+                            placeholder="Monto">
+                    </mat-form-field>
+                    <div *ngIf="(amount.touched || amount.dirty) && !amount.valid && amount.errors"
+                        class="text-alert">
+                        <div *ngIf="amount.errors.required">Se requiere monto</div>
+                        <div *ngIf="amount.errors.pattern">Este campo solo acepta números</div>
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                <mat-form-field>
+                    <textarea type="text" class="input" name="description" id="description"
+                        [(ngModel)]="expenses.description" #description="ngModel" required
+                        pattern="[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇç,.0-9]*$" matInput
+                        placeholder="Descripcion"></textarea>
+                </mat-form-field>
+                <div *ngIf="(description.touched || description.dirty) && !description.valid && description.errors"
+                    class="errorBar">
+                    <div class="errorText" *ngIf="description.errors.required">Se requiere descripcion</div>
+                    <div class="errorText" *ngIf="description.errors.pattern">Este campo acepta letras y
+                        números</div>
+                </div>
+            </div>
+            <div class="buttons">
+                <button class="button" type="submit" mat-raised-button
+                    (click)="saveExpenses()">Guardar</button>
+                <button class="cancel_button" type="button" mat-raised-button
+                    (click)='goToExpenses()'>Cancelar</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

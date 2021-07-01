@@ -1,0 +1,41 @@
+<mat-card class="card">
+    <h1 class="title">Registro Mensualidad</h1>
+    <br>
+    <mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+    <div class="grid_container" *ngIf="loading == false">
+        <div>
+            <label class="subtitle">Nombres: </label>
+            <label class="text"> {{mensuality.firstName}}</label>
+            <br>
+            <label class="subtitle">Apellido Paterno: </label>
+            <label class="text"> {{mensuality.lastName}}</label>
+            <br>
+            <label class="subtitle">Apellido Materno: </label>
+            <label class="text"> {{mensuality.mothersLastName}}</label>
+            <br>
+            <label class="subtitle">Tutor: </label>
+            <label class="text"> {{mensuality.nameOfTutor}}</label>
+            <br>
+            <label class="subtitle">Celular: </label>
+            <label class="text"> {{mensuality.phone}}</label>
+        </div>
+        <div>
+            <label class="subtitle">Fecha de Admisión: </label>
+            <label class="text"> {{mensuality.admissionDate | date:'dd - MMM - yyyy'}}</label>
+            <br>
+            <label class="subtitle">Fecha: </label>
+            <label class="text"> {{mensuality.date | date:'dd - MMM - yyyy'}}</label>
+            <br>
+            <label class="subtitle">Mes a pagar: </label>
+            <label class="text"> {{mensuality.month}} {{mensuality.year}}</label>
+            <br>
+            <label class="subtitle">Monto: </label>
+            <label class="text"> {{mensuality.amount}}</label>
+        </div>
+    </div>
+    <br><br>
+    <div class="buttons">
+        <button class="button" mat-stroked-button (click)="goToMensualities()">Mensualidades Canceladas</button>
+        <button class="cancel_button" mat-stroked-button (click)="goToProfile()">Cancelar</button>
+    </div>
+</mat-card>

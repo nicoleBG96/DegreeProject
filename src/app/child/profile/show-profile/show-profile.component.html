@@ -1,0 +1,43 @@
+<mat-card class="card">
+    <h1 class="title">Perfil </h1>
+    <br>
+    <div class="grid_container">
+        <div class="left">
+            <label class="subtitle"> Nombres:</label>
+            <label> {{profile.firstName}}</label>
+            <br>
+            <label class="subtitle">Apellido Paterno: </label>
+            <label> {{profile.lastName}}</label>
+            <br>
+            <label class="subtitle">Apellido Materno: </label>
+            <label> {{profile.mothersLastName}}</label>
+            <br>
+            <label class="subtitle">Fecha de Nacimiento: </label>
+            <label> {{profile.birthDate | date:'dd-MM-yyyy'}}</label>
+            <br>
+            <label class="subtitle"> Sexo:</label>
+            <label> {{profile.sex}}</label>
+            <br>
+            <label class="subtitle"> Fecha de Admisión:</label>
+            <label> {{profile.admissionDate | date: 'dd-MM-yyyy'}}</label>
+        </div>
+        <div class="right">
+            <img src="{{profile.image}}" alt="" height="150" width="150">
+            <br><br>
+            <label class="subtitle">Estado: </label>
+            <label class="subtitle-space"> {{(getStatus(profile))}}</label>
+            <button mat-stroked-button class="button_enable" *ngIf="!profile.isDisable && role =='admin'"
+                (click)="status(profile, true)">Inhabilitar</button>
+            <button mat-stroked-button class="button_enable" *ngIf="profile.isDisable && role =='admin'"
+                (click)="status(profile, false)">Habilitar</button>
+        </div>
+    </div>
+    <br><br>
+    <div class="buttons">
+        <button class="button" mat-stroked-button (click)="goToRegister(child)">Registro</button>
+        <button class="button" mat-stroked-button (click)="goToMedicalRecord(child)">Ficha Médica</button>
+        <button class="button" mat-stroked-button (click)="goToProgress(child)">Ficha Psicológica</button>
+        <button class="button" mat-stroked-button (click)="goToMensualities(profile)" *ngIf="role=='admin'">Mensualidades</button>
+        <button class="cancel_button" mat-stroked-button (click)="goToProfiles()">Volver</button>
+    </div>
+</mat-card>

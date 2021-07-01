@@ -1,0 +1,24 @@
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 40px;
+    margin-left: 40%;
+}
+
+.select {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    margin-left: 40%;
+}
+
+.button {
+    size: 70px;
+    color:white;
+    background-color: blue ;
+    margin-left: 90%;
+}
+
+.cards {
+    width: 20%;
+    height: 30%;
+    margin-left: 10px;
+}

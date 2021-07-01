@@ -1,0 +1,1248 @@
+<mat-card class="card">
+        <mat-card-header>
+                <label class="title">Ficha Psicológica</label>
+        </mat-card-header>
+        <br>
+        <mat-card-content>
+                <form #formNew="ngForm" novalidate>
+                        <div class="grid_container">
+                                <div class="left">
+                                        <label class="text">Nombre:</label>
+                                        <label class="input">{{child.firstName}}</label>
+                                        <br><br>
+                                        <label class="text">Apellido Paterno:</label>
+                                        <label class="input">{{child.lastName}}</label>
+                                        <br><br>
+                                        <label class="text">Apellido Materno: </label>
+                                        <label class="input">{{child.mothersLastName}}</label>
+                                </div>
+                                <div class="center">
+                                        <mat-form-field class="text">
+                                                <input class="input" [(ngModel)]="child.numberOrder" type="text"
+                                                        name="numberOrder" #numberOrder="ngModel" id="numberOrder"
+                                                        maxlength="2" minlength="2" required pattern="^[0-9]*$" matInput
+                                                        placeholder="Numero de Orden">
+                                        </mat-form-field>
+                                        <div *ngIf="(numberOrder.touched || numberOrder.dirty) && !numberOrder.valid && numberOrder.errors"
+                                                class="text-alert">
+                                                <div *ngIf="numberOrder.errors.required">Se requiere
+                                                        numero de orden</div>
+                                                <div *ngIf="numberOrder.errors.pattern">Este campo solo
+                                                        acepta números</div>
+                                                <div *ngIf="numberOrder.errors.minlength">2 números
+                                                        mínimo</div>
+                                        </div>
+                                        <br>
+                                        <label class="text">Edad en Meses:</label>
+                                        <label class="input">{{calculateAgeIntMonths()}}</label>
+                                        <br><br>
+                                        <label class="text">Fecha de nacimiento:</label>
+                                        <label class="input">{{child.birthDate |
+                                                date:'dd/MM/yyyy'}}</label>
+                                </div>
+                                <div class="right">
+                                        <mat-form-field class="text">
+                                                <input class="input" [(ngModel)]="child.folio" type="text" name="folio"
+                                                        #folio="ngModel" id="folio" maxlength="4" minlength="4" required
+                                                        pattern="^[0-9]*$" matInput placeholder="Folio">
+                                        </mat-form-field>
+                                        <div *ngIf="(folio.touched || folio.dirty) && !folio.valid && folio.errors"
+                                                class="text-alert">
+                                                <div *ngIf="folio.errors.required">Se requiere folio
+                                                </div>
+                                                <div *ngIf="folio.errors.pattern">Este campo solo acepta
+                                                        números</div>
+                                                <div *ngIf="folio.errors.minlength">4 números mínimo
+                                                </div>
+                                        </div>
+                                        <br>
+                                        <label class="text">Sexo:</label>
+                                        <label class="input">{{child.sex}}</label>
+                                        <br><br>
+                                        <mat-form-field class="text">
+                                                <input class="input" [(ngModel)]="child.date" type="date" name="date"
+                                                        #date="ngModel" id="date" matInput
+                                                        placeholder="Fecha de Entrevista">
+                                        </mat-form-field>
+                                </div>
+                        </div>
+                        <div class="size-weight">
+                                <mat-label class="subtitle">Antropometría</mat-label>
+                                <div class="grid_second_container">
+                                        <div>
+                                                <label class="text">Peso: </label>
+                                                <label class="input">{{child.weight}}</label>
+                                        </div>
+                                        <div>
+                                                <label class="text">Talla: </label>
+                                                <label class="input">{{child.size}}</label>
+                                        </div>
+                                </div>
+                        </div>
+                        <br>
+                        <table mat table class="mat-elevation-z8">
+                                <ng-container *ngIf="calculateAgeIntMonths() == '0'">
+                                        <th>MOTROCIDAD GRUESA (0 - 1)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 1)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 1)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 1)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '1' || calculateAgeIntMonths() == '2' || calculateAgeIntMonths() == '3'">
+                                        <th>MOTROCIDAD GRUESA (0 - 6)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 6)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 6)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 6)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '4' || calculateAgeIntMonths() == '5' || calculateAgeIntMonths() == '6'">
+                                        <th>MOTROCIDAD GRUESA (0 - 10)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 10)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 10)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 10)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '7' || calculateAgeIntMonths() == '8' || calculateAgeIntMonths() == '9'">
+                                        <th>MOTROCIDAD GRUESA (0 - 14)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 13)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 13)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 13)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '10' || calculateAgeIntMonths() == '11' || calculateAgeIntMonths() == '12'">
+                                        <th>MOTROCIDAD GRUESA (0 - 17)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 15)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 15)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 15)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '13' || calculateAgeIntMonths() == '14' || calculateAgeIntMonths() == '15'
+                                || calculateAgeIntMonths() == '16' || calculateAgeIntMonths() == '17' || calculateAgeIntMonths() == '18'">
+                                        <th>MOTROCIDAD GRUESA (0 - 20)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 19)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 18)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 18)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '19' || calculateAgeIntMonths() == '20' || calculateAgeIntMonths() == '21'
+                                || calculateAgeIntMonths() == '22' || calculateAgeIntMonths() == '23' || calculateAgeIntMonths() == '24'">
+                                        <th>MOTROCIDAD GRUESA (0 - 24)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 21)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 21)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 23)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '25' || calculateAgeIntMonths() == '26' || calculateAgeIntMonths() == '27'
+                                || calculateAgeIntMonths() == '28' || calculateAgeIntMonths() == '29' || calculateAgeIntMonths() == '30' || calculateAgeIntMonths() == '31'
+                                || calculateAgeIntMonths() == '32' || calculateAgeIntMonths() == '33' || calculateAgeIntMonths() == '34' || calculateAgeIntMonths() == '35'
+                                || calculateAgeIntMonths() == '36'">
+                                        <th>MOTROCIDAD GRUESA (0 - 28)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 25)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 25)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 28)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '37' || calculateAgeIntMonths() == '38' || calculateAgeIntMonths() == '39'
+                                || calculateAgeIntMonths() == '40' || calculateAgeIntMonths() == '41' || calculateAgeIntMonths() == '42' || calculateAgeIntMonths() == '43'
+                                || calculateAgeIntMonths() == '44' || calculateAgeIntMonths() == '45' || calculateAgeIntMonths() == '46' || calculateAgeIntMonths() == '47'
+                                || calculateAgeIntMonths() == '48'">
+                                        <th>MOTROCIDAD GRUESA (0 - 30)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 29)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 30)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 30)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '49' || calculateAgeIntMonths() == '50' || calculateAgeIntMonths() == '51'
+                                || calculateAgeIntMonths() == '52' || calculateAgeIntMonths() == '53' || calculateAgeIntMonths() == '54' || calculateAgeIntMonths() == '55'
+                                || calculateAgeIntMonths() == '56' || calculateAgeIntMonths() == '57' || calculateAgeIntMonths() == '58' || calculateAgeIntMonths() == '59'
+                                || calculateAgeIntMonths() == '60'">
+                                        <th>MOTROCIDAD GRUESA (0 - 30)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 29)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 29)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 29)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '61' || calculateAgeIntMonths() == '62' || calculateAgeIntMonths() == '63'
+                                || calculateAgeIntMonths() == '64' || calculateAgeIntMonths() == '65' || calculateAgeIntMonths() == '66' || calculateAgeIntMonths() == '67'
+                                || calculateAgeIntMonths() == '68' || calculateAgeIntMonths() == '69' || calculateAgeIntMonths() == '70' || calculateAgeIntMonths() == '71'
+                                || calculateAgeIntMonths() == '72'">
+                                        <th>MOTROCIDAD GRUESA (0 - 36)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 36)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 34)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 36)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container *ngIf="calculateAgeIntMonths() == '73' || calculateAgeIntMonths() == '74' || calculateAgeIntMonths() == '75'
+                                || calculateAgeIntMonths() == '76' || calculateAgeIntMonths() == '77' || calculateAgeIntMonths() == '78' || calculateAgeIntMonths() == '79'
+                                || calculateAgeIntMonths() == '80' || calculateAgeIntMonths() == '81' || calculateAgeIntMonths() == '82' || calculateAgeIntMonths() == '83'
+                                || calculateAgeIntMonths() == '84'">
+                                        <th>MOTROCIDAD GRUESA (0 - 36)</th>
+                                        <th>PTJE </th>
+                                        <th>MOTROCIDAD FINA ADECUADA (0 - 37)</th>
+                                        <th>PTJE </th>
+                                        <th>AUDICIÓN LENGUAJE (0 - 36)</th>
+                                        <th>PTJE</th>
+                                        <th>PERSONAL SOCIAL (0 - 36)</th>
+                                        <th>PTJE </th>
+                                </ng-container>
+                                <ng-container>
+                                        <tr *ngIf="calculateAgeIntMonths()=='0'">
+                                                <td>Patalea vigorosamente</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-1]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointA1.touched || pointA1.dirty) && !pointA1.valid && pointA1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointA1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointA1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Sigue movimiento horizontal y vertical del
+                                                        objeto</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-1]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointB1.touched || pointB1.dirty) && !pointB1.valid && pointB1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointB1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointB1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Se sobresalta con un ruido</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-1]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointC1.touched || pointC1.dirty) && !pointC1.valid && pointC1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointC1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointC1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Sigue con la mirada los movimientos de la
+                                                        cara</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-1]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointD1.touched || pointD1.dirty) && !pointD1.valid && pointD1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointD1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointD1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='1'||calculateAgeIntMonths()=='2'||calculateAgeIntMonths()=='3')">
+                                                <td>Levanta la cabeza boca-abajo</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointA1.touched || pointA1.dirty) && !pointA1.valid && pointA1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointA1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointA1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Abre y mira sus manos</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointB1.touched || pointB1.dirty) && !pointB1.valid && pointB1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointB1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointB1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Busca el sonido con la mirada</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointC1.touched || pointC1.dirty) && !pointC1.valid && pointC1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointC1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointC1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Reconoce a la madre</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointD1.touched || pointD1.dirty) && !pointD1.valid && pointD1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointD1.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointD1.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='1'||calculateAgeIntMonths()=='2'||calculateAgeIntMonths()=='3')">
+                                                <td>Levanta la cabeza y pocho boca-abajo</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointA2.touched || pointA2.dirty) && !pointA2.valid && pointA2.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointA2.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointA2.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Sostiene un objeto en la mano</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointB2.touched || pointB2.dirty) && !pointB2.valid && pointB2.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointB2.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointB2.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Pronuncia dos sonidos guturales diferentes
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointC2.touched || pointC2.dirty) && !pointC2.valid && pointC2.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointC2.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointC2.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Sonré al acariciarlo</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointD2.touched || pointD2.dirty) && !pointD2.valid && pointD2.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointD2.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointD2.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='1'||calculateAgeIntMonths()=='2'||calculateAgeIntMonths()=='3')">
+                                                <td>Sostiene la cabeza al levantarlo de brazos
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointA3.touched || pointA3.dirty) && !pointA3.valid && pointA3.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointA3.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointA3.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Lleva un objeto a la boca</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointB3.touched || pointB3.dirty) && !pointB3.valid && pointB3.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointB3.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointB3.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Balbucea con las personas</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointC3.touched || pointC3.dirty) && !pointC3.valid && pointC3.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointC3.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointC3.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Se voltea cuando se le habla</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-6]*$" maxlength="1">
+                                                </td>
+                                                <div *ngIf="(pointD3.touched || pointD3.dirty) && !pointD3.valid && pointD3.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointD3.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointD3.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='4'||calculateAgeIntMonths()=='5'||calculateAgeIntMonths()=='6')">
+                                                <td>Controla la cabeza de sentado</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel"
+                                                                maxlength="2">
+                                                </td>
+                                                <td>Agarra objetos voluntariamente</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Pronuncia cuatro o más sonidos diferentes
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Agarra las manos del encuestador</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-9 10]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='4'||calculateAgeIntMonths()=='5'||calculateAgeIntMonths()=='6')">
+                                                <td>Se voltea de un lado a otro</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Sostiene un objeto en cada mano</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Ríe a carcajadas</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Acepta y agarra el juguete</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='4'||calculateAgeIntMonths()=='5'||calculateAgeIntMonths()=='6')">
+                                                <td>Intenta sotenerse solo</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Pasa un objeto de una mano a otra</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Reacciona cuando se le llama</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                                <td>Pone atención a la conversación</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-10]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='7'||calculateAgeIntMonths()=='8'||calculateAgeIntMonths()=='9')">
+                                                <td>Se sostiene sentado con ayuda</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-14]*$" maxlength="2">
+                                                </td>
+                                                <td>Manipula varios objetos a la vez</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                                <td>Pronuncia tres o más sílabas</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                                <td>Ayuda a sostener la taza para tomar</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='7'||calculateAgeIntMonths()=='8'||calculateAgeIntMonths()=='9')">
+                                                <td>Se arrasta en posición boca-abajo</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-14]*$" maxlength="2">
+                                                </td>
+                                                <td>Agarra un objeto pequeño con los dedos</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                                <td>Hace sonar la sonajera</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                                <td>Reacciona ante su imagen en el espejo</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='7'||calculateAgeIntMonths()=='8'||calculateAgeIntMonths()=='9')">
+                                                <td>Se sienta sin ayuda</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-14]*$" maxlength="2">
+                                                </td>
+                                                <td>Agarra un cubo con el pulgar y el índice
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                                <td>Pronuncia una palabra clara</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                                <td>Imita los aplausos</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-13]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='10'||calculateAgeIntMonths()=='11'||calculateAgeIntMonths()=='12')">
+                                                <td>Gatea</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-17]*$" maxlength="2">
+                                                </td>
+                                                <td>Mete y saca objetos de la caja</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                                <td>Niega con la cabeza</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                                <td>Entrega el juguete al encuestador</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='10'||calculateAgeIntMonths()=='11'||calculateAgeIntMonths()=='12')">
+                                                <td>Se agarra y se sostiene de pie</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-17]*$" maxlength="2">
+                                                </td>
+                                                <td>Agarra tercer objeto sin soltar los otros
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                                <td>Llama a la madre o acompañante</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                                <td>Pide un objeto o juguete</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr *ngIf="(calculateAgeIntMonths()=='10'||calculateAgeIntMonths()=='11'||calculateAgeIntMonths()=='12')">
+                                                <td>Se para sin ayuda</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-17]*$" maxlength="2">
+                                                </td>
+                                                <td>Busca objetos escondidos</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                                <td>Entiende una orden sencilla</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                                <td>Toma en taza solo</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-15]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='13'||calculateAgeIntMonths()=='14'||calculateAgeIntMonths()=='15'||calculateAgeIntMonths()=='16'||calculateAgeIntMonths()=='17'||calculateAgeIntMonths()=='18')">
+                                                <td>Da pasitos solo</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-20]*$" maxlength="2">
+                                                </td>
+                                                <td>Hace torre de tres cubos</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-19]*$" maxlength="2">
+                                                </td>
+                                                <td>Reconoce tres objetos</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-18]*$" maxlength="2">
+                                                </td>
+                                                <td>Señala una prenda de vestir</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-18]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='13'||calculateAgeIntMonths()=='14'||calculateAgeIntMonths()=='15'||calculateAgeIntMonths()=='16'||calculateAgeIntMonths()=='17'||calculateAgeIntMonths()=='18')">
+                                                <td>Camina solo</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-20]*$" maxlength="2">
+                                                </td>
+                                                <td>Pasa hojas de un cuento o una revista</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-19]*$" maxlength="2">
+                                                </td>
+                                                <td>Combina dos palabras</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-18]*$" maxlength="2">
+                                                </td>
+                                                <td>Señala dos partes del cuerpo</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-18]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='13'||calculateAgeIntMonths()=='14'||calculateAgeIntMonths()=='15'||calculateAgeIntMonths()=='16'||calculateAgeIntMonths()=='17'||calculateAgeIntMonths()=='18')">
+                                                <td>Corre</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-20]*$" maxlength="2">
+                                                </td>
+                                                <td>Espera que salga la pelotita</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-19]*$" maxlength="2">
+                                                </td>
+                                                <td>Reconoce seis objetos</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-18]*$" maxlength="2">
+                                                </td>
+                                                <td>Avisa para ir al baño</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-18]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='19'||calculateAgeIntMonths()=='20'||calculateAgeIntMonths()=='21'||calculateAgeIntMonths()=='22'||calculateAgeIntMonths()=='23'||calculateAgeIntMonths()=='24')">
+                                                <td>Patea la pelota</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-24]*$" maxlength="2">
+                                                </td>
+                                                <td>Tapa bien la caja</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-21]*$" maxlength="2">
+                                                </td>
+                                                <td>Nombra cinco objetos</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-21]*$" maxlength="2">
+                                                </td>
+                                                <td>Señala cinco partes del cuerpo</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-23]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='19'||calculateAgeIntMonths()=='20'||calculateAgeIntMonths()=='21'||calculateAgeIntMonths()=='22'||calculateAgeIntMonths()=='23'||calculateAgeIntMonths()=='24')">
+                                                <td>Tira la pelota con las manos</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-24]*$" maxlength="2">
+                                                </td>
+                                                <td>Hace garabatos circulares</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-21]*$" maxlength="2">
+                                                </td>
+                                                <td>Usa frases de tres palabras</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-21]*$" maxlength="2">
+                                                </td>
+                                                <td>Trata de contar experiencias</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-23]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='19'||calculateAgeIntMonths()=='20'||calculateAgeIntMonths()=='21'||calculateAgeIntMonths()=='22'||calculateAgeIntMonths()=='23'||calculateAgeIntMonths()=='24')">
+                                                <td>Salta en dos pies</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-24]*$" maxlength="2">
+                                                </td>
+                                                <td>Hace torre de cinco o más cubos</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-21]*$" maxlength="2">
+                                                </td>
+                                                <td>Dice más de 20 palabras claras</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-21]*$" maxlength="2">
+                                                </td>
+                                                <td>Controla en el día su orina</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-23]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='25'||calculateAgeIntMonths()=='26'||calculateAgeIntMonths()=='27'||calculateAgeIntMonths()=='28'||calculateAgeIntMonths()=='29'||calculateAgeIntMonths()=='30'
+                                ||calculateAgeIntMonths()=='31'||calculateAgeIntMonths()=='32'||calculateAgeIntMonths()=='33'||calculateAgeIntMonths()=='34'||calculateAgeIntMonths()=='35'||calculateAgeIntMonths()=='36')">
+                                                <td>Se para de puntas en ambos pies</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-28]*$" maxlength="2">
+                                                </td>
+                                                <td>Ensarta seis o más cuentas</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-25]*$" maxlength="2">
+                                                </td>
+                                                <td>Dice su nombre completo</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-25]*$" maxlength="2">
+                                                </td>
+                                                <td>Diferencia hombre y mujer</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-28]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='25'||calculateAgeIntMonths()=='26'||calculateAgeIntMonths()=='27'||calculateAgeIntMonths()=='28'||calculateAgeIntMonths()=='29'||calculateAgeIntMonths()=='30'
+                            ||calculateAgeIntMonths()=='31'||calculateAgeIntMonths()=='32'||calculateAgeIntMonths()=='33'||calculateAgeIntMonths()=='34'||calculateAgeIntMonths()=='35'||calculateAgeIntMonths()=='36')">
+                                                <td>Se levanta sin usar las manos</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-28]*$" maxlength="2">
+                                                </td>
+                                                <td>Copia línea vertical y horizontal</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-25]*$" maxlength="2">
+                                                </td>
+                                                <td>Diferencia niño-bajo-grande-pequeño</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-25]*$" maxlength="2">
+                                                </td>
+                                                <td>Dice el nombre de su mamá y de su papá</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-28]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='25'||calculateAgeIntMonths()=='26'||calculateAgeIntMonths()=='27'||calculateAgeIntMonths()=='28'||calculateAgeIntMonths()=='29'||calculateAgeIntMonths()=='30'
+                            ||calculateAgeIntMonths()=='31'||calculateAgeIntMonths()=='32'||calculateAgeIntMonths()=='33'||calculateAgeIntMonths()=='34'||calculateAgeIntMonths()=='35'||calculateAgeIntMonths()=='36')">
+                                                <td>Camina hacia atrás</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-28]*$" maxlength="2">
+                                                </td>
+                                                <td>Separa objetos grandes y pequeños</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-25]*$" maxlength="2">
+                                                </td>
+                                                <td>Usa oraciones completas</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-25]*$" maxlength="2">
+                                                </td>
+                                                <td>Se lava solo las manos y la cara</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-28]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='37'||calculateAgeIntMonths()=='38'||calculateAgeIntMonths()=='39'||calculateAgeIntMonths()=='40'||calculateAgeIntMonths()=='41'||calculateAgeIntMonths()=='42'
+                                ||calculateAgeIntMonths()=='43'||calculateAgeIntMonths()=='44'||calculateAgeIntMonths()=='45'||calculateAgeIntMonths()=='46'||calculateAgeIntMonths()=='47'||calculateAgeIntMonths()=='48')">
+                                                <td>Camina de puntas </td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" max="30"
+                                                                min="0" required pattern="[0-9 10-19 20-29 30]*$"
+                                                                maxlength="2">
+                                                </td>
+                                                <div *ngIf="(pointA1.touched || pointA1.dirty) && !pointA1.valid && pointA1.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointA1.errors.required">Se
+                                                                requiere puntaje</div>
+                                                </div>
+                                                <td>Dibuja figura humana rudimentaria 1</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce para que sirven 5 objetos</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Puede desvestirse solo</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='37'||calculateAgeIntMonths()=='38'||calculateAgeIntMonths()=='39'||calculateAgeIntMonths()=='40'||calculateAgeIntMonths()=='41'||calculateAgeIntMonths()=='42'
+                                    ||calculateAgeIntMonths()=='43'||calculateAgeIntMonths()=='44'||calculateAgeIntMonths()=='45'||calculateAgeIntMonths()=='46'||calculateAgeIntMonths()=='47'||calculateAgeIntMonths()=='48')">
+                                                <td>Se para en un solo pie</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Corta papel con las tijeras</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Repite tres dígitos</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Comparte juegos con otros niños</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='37'||calculateAgeIntMonths()=='38'||calculateAgeIntMonths()=='39'||calculateAgeIntMonths()=='40'||calculateAgeIntMonths()=='41'||calculateAgeIntMonths()=='42'
+                                    ||calculateAgeIntMonths()=='43'||calculateAgeIntMonths()=='44'||calculateAgeIntMonths()=='45'||calculateAgeIntMonths()=='46'||calculateAgeIntMonths()=='47'||calculateAgeIntMonths()=='48')">
+                                                <td>Tira y agarra la pelota</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Copia cuadrado y círculo</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Describe bien el dibujo</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Tiene amigo (s) especial (es)</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='49'||calculateAgeIntMonths()=='50'||calculateAgeIntMonths()=='51'||calculateAgeIntMonths()=='52'||calculateAgeIntMonths()=='53'||calculateAgeIntMonths()=='54'
+                                ||calculateAgeIntMonths()=='55'||calculateAgeIntMonths()=='56'||calculateAgeIntMonths()=='57'||calculateAgeIntMonths()=='58'||calculateAgeIntMonths()=='59'||calculateAgeIntMonths()=='60')">
+                                                <td>Camina en línea recta</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Dibuja figura humana 2</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Cuenta dedos de sus manos</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Puede vestirse y desvestirse solo</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='49'||calculateAgeIntMonths()=='50'||calculateAgeIntMonths()=='51'||calculateAgeIntMonths()=='52'||calculateAgeIntMonths()=='53'||calculateAgeIntMonths()=='54'
+                                    ||calculateAgeIntMonths()=='55'||calculateAgeIntMonths()=='56'||calculateAgeIntMonths()=='57'||calculateAgeIntMonths()=='58'||calculateAgeIntMonths()=='59'||calculateAgeIntMonths()=='60')">
+                                                <td>Salta tres o más pasos en un pie</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Agrupa por color y forma</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Direferencia adelante atrás arriba abajo
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Sabe cuantos años tiene</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='49'||calculateAgeIntMonths()=='50'||calculateAgeIntMonths()=='51'||calculateAgeIntMonths()=='52'||calculateAgeIntMonths()=='53'||calculateAgeIntMonths()=='54'
+                        ||calculateAgeIntMonths()=='55'||calculateAgeIntMonths()=='56'||calculateAgeIntMonths()=='57'||calculateAgeIntMonths()=='58'||calculateAgeIntMonths()=='59'||calculateAgeIntMonths()=='60')">
+                                                <td>Hace rebotar y agarra la pelota</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-30]*$" maxlength="2">
+                                                </td>
+                                                <td>Dibuja imitando escalera</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Nombra 4 a 5 colores</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                                <td>Organiza juegos</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-29]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='61'||calculateAgeIntMonths()=='62'||calculateAgeIntMonths()=='63'||calculateAgeIntMonths()=='64'||calculateAgeIntMonths()=='65'||calculateAgeIntMonths()=='66'
+                    ||calculateAgeIntMonths()=='67'||calculateAgeIntMonths()=='68'||calculateAgeIntMonths()=='69'||calculateAgeIntMonths()=='70'||calculateAgeIntMonths()=='71'||calculateAgeIntMonths()=='72')">
+                                                <td>Salta con pies juntos una cuerda a 25 cms
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Agrupa por color, forma y tamaño</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Expresa opiniones</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-34]*$" maxlength="2">
+                                                </td>
+                                                <td>Hace mandados</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='61'||calculateAgeIntMonths()=='62'||calculateAgeIntMonths()=='63'||calculateAgeIntMonths()=='64'||calculateAgeIntMonths()=='65'||calculateAgeIntMonths()=='66'
+                        ||calculateAgeIntMonths()=='67'||calculateAgeIntMonths()=='68'||calculateAgeIntMonths()=='69'||calculateAgeIntMonths()=='70'||calculateAgeIntMonths()=='71'||calculateAgeIntMonths()=='72')">
+                                                <td>Corre saltando alternando los pies</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Reconstruye gradas de 10 cubos</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce izquierda derecha</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-34]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce el nombre de la calle o barrio</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='61'||calculateAgeIntMonths()=='62'||calculateAgeIntMonths()=='63'||calculateAgeIntMonths()=='64'||calculateAgeIntMonths()=='65'||calculateAgeIntMonths()=='66'
+                        ||calculateAgeIntMonths()=='67'||calculateAgeIntMonths()=='68'||calculateAgeIntMonths()=='69'||calculateAgeIntMonths()=='70'||calculateAgeIntMonths()=='71'||calculateAgeIntMonths()=='72')">
+                                                <td>Salta desde 40 cms de altura</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <div *ngIf="(pointA3.touched || pointA3.dirty) && !pointA3.valid && pointA3.errors"
+                                                        class="text-alert">
+                                                        <div *ngIf="pointA3.errors.required">Se
+                                                                requiere Puntaje</div>
+                                                        <div *ngIf="pointA3.errors.pattern">
+                                                                valor no válido</div>
+                                                </div>
+                                                <td>Dibuja una casa</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce los días de la semana</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-34]*$" maxlength="2">
+                                                </td>
+                                                <td>Comenta vida familiar</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='73'||calculateAgeIntMonths()=='74'||calculateAgeIntMonths()=='75'||calculateAgeIntMonths()=='76'||calculateAgeIntMonths()=='77'||calculateAgeIntMonths()=='78'
+                    ||calculateAgeIntMonths()=='79'||calculateAgeIntMonths()=='80'||calculateAgeIntMonths()=='81'||calculateAgeIntMonths()=='82'||calculateAgeIntMonths()=='83'||calculateAgeIntMonths()=='84')">
+                                                <td>Juega rayuela o tunkuña</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Escribe letras y/o números</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-37]*$" maxlength="2">
+                                                </td>
+                                                <td>Identifica letras iguales</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Sabe que lugar ocupa en la familia</td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='73'||calculateAgeIntMonths()=='74'||calculateAgeIntMonths()=='75'||calculateAgeIntMonths()=='76'||calculateAgeIntMonths()=='77'||calculateAgeIntMonths()=='78'
+                        ||calculateAgeIntMonths()=='79'||calculateAgeIntMonths()=='80'||calculateAgeIntMonths()=='81'||calculateAgeIntMonths()=='82'||calculateAgeIntMonths()=='83'||calculateAgeIntMonths()=='84')">
+                                                <td>Hace una construcción rudimentaria</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Modela figura humana con plastilina</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-37]*$" maxlength="2">
+                                                </td>
+                                                <td>Dice frases con entonación</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Participa en las actividades de su familia
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='73'||calculateAgeIntMonths()=='74'||calculateAgeIntMonths()=='75'||calculateAgeIntMonths()=='76'||calculateAgeIntMonths()=='77'||calculateAgeIntMonths()=='78'
+                         ||calculateAgeIntMonths()=='79'||calculateAgeIntMonths()=='80'||calculateAgeIntMonths()=='81'||calculateAgeIntMonths()=='82'||calculateAgeIntMonths()=='83'||calculateAgeIntMonths()=='84')">
+                                                <td>Salta alternando los pies</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Copia figuras con líneas curvas</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-37]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce hoy, ayer y mañana</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce fechas especiales</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='85'||calculateAgeIntMonths()=='86'||calculateAgeIntMonths()=='87'||calculateAgeIntMonths()=='88'||calculateAgeIntMonths()=='89'||calculateAgeIntMonths()=='90'
+                    ||calculateAgeIntMonths()=='91'||calculateAgeIntMonths()=='92'||calculateAgeIntMonths()=='93'||calculateAgeIntMonths()=='94'||calculateAgeIntMonths()=='95'||calculateAgeIntMonths()=='96')">
+                                                <td>Abre y cierra las manos alternadamente</td>
+                                                <td><input type="text" class="textBox" name="pointA1" id="pointA1"
+                                                                [(ngModel)]="child.pointA1" #pointA1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Colorea una figura</td>
+                                                <td><input type="text" class="textBox" name="pointB1" id="pointB1"
+                                                                [(ngModel)]="child.pointB1" #pointB1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Cuenta hacia atrás desde el número 10</td>
+                                                <td><input type="text" class="textBox" name="pointC1" id="pointC1"
+                                                                [(ngModel)]="child.pointC1" #pointC1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Relaciona tiempo con actividades diarias
+                                                </td>
+                                                <td><input type="text" class="textBox" name="pointD1" id="pointD1"
+                                                                [(ngModel)]="child.pointD1" #pointD1="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='85'||calculateAgeIntMonths()=='86'||calculateAgeIntMonths()=='87'||calculateAgeIntMonths()=='88'||calculateAgeIntMonths()=='89'||calculateAgeIntMonths()=='90'
+                        ||calculateAgeIntMonths()=='91'||calculateAgeIntMonths()=='92'||calculateAgeIntMonths()=='93'||calculateAgeIntMonths()=='94'||calculateAgeIntMonths()=='95'||calculateAgeIntMonths()=='96')">
+                                                <td>Marcha sin perder el ritmo</td>
+                                                <td><input type="text" class="textBox" name="pointA2" id="pointA2"
+                                                                [(ngModel)]="child.pointA2" #pointA2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Hace una figura con papel</td>
+                                                <td><input type="text" class="textBox" name="pointB2" id="pointB2"
+                                                                [(ngModel)]="child.pointB2" #pointB2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Ordena en secuencia</td>
+                                                <td><input type="text" class="textBox" name="pointC2" id="pointC2"
+                                                                [(ngModel)]="child.pointC2" #pointC2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Indica recorrido</td>
+                                                <td><input type="text" class="textBox" name="pointD2" id="pointD2"
+                                                                [(ngModel)]="child.pointD2" #pointD2="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                        <tr
+                                                *ngIf="(calculateAgeIntMonths()=='85'||calculateAgeIntMonths()=='86'||calculateAgeIntMonths()=='87'||calculateAgeIntMonths()=='88'||calculateAgeIntMonths()=='89'||calculateAgeIntMonths()=='90'
+                        ||calculateAgeIntMonths()=='91'||calculateAgeIntMonths()=='92'||calculateAgeIntMonths()=='93'||calculateAgeIntMonths()=='94'||calculateAgeIntMonths()=='95'||calculateAgeIntMonths()=='96')">
+                                                <td>Salta la cuerda</td>
+                                                <td><input type="text" class="textBox" name="pointA3" id="pointA3"
+                                                                [(ngModel)]="child.pointA3" #pointA3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Recorta curvas y círculos</td>
+                                                <td><input type="text" class="textBox" name="pointB3" id="pointB3"
+                                                                [(ngModel)]="child.pointB3" #pointB3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Conoce orden de los días de la semana</td>
+                                                <td><input type="text" class="textBox" name="pointC3" id="pointC3"
+                                                                [(ngModel)]="child.pointC3" #pointC3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                                <td>Habla sobre sí mismo</td>
+                                                <td><input type="text" class="textBox" name="pointD3" id="pointD3"
+                                                                [(ngModel)]="child.pointD3" #pointD3="ngModel" required
+                                                                pattern="[0-36]*$" maxlength="2">
+                                                </td>
+                                        </tr>
+                                </ng-container>
+                                <ng-container>
+                                        <tr>
+                                                <td>Total A: </td>
+                                                <td> {{(calculateTotal('A', child.pointA1, child.pointA2,
+                                                        child.pointA3))}}
+                                                </td>
+                                                <td>Total B: </td>
+                                                <td> {{(calculateTotal('B', child.pointB1, child.pointB2,
+                                                        child.pointB3))}}
+                                                </td>
+                                                <td>Total C: </td>
+                                                <td>{{(calculateTotal('C', child.pointC1, child.pointC2,
+                                                        child.pointC3))}}
+                                                </td>
+                                                <td>Total D: </td>
+                                                <td>{{(calculateTotal('D', child.pointD1, child.pointD2,
+                                                        child.pointD3))}}
+                                                </td>
+                                        </tr>
+                                </ng-container>
+                        </table>
+                        <br><br>
+                        <div class="buttons">
+                                <button *ngIf="!isEdit" class="button" type="submit" mat-raised-button
+                                        (click)="saveProgress()">Guardar</button>
+                                <button *ngIf="isEdit" class="button" type="submit" mat-raised-button
+                                        (click)="editProgress(child)">Actualizar</button>
+                                <button (click)="goToProfile()" class="cancel_button" type="button"
+                                        mat-raised-button>Cancelar</button>
+                        </div>
+                        <br>
+                </form>
+        </mat-card-content>
+</mat-card>

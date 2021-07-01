@@ -1,0 +1,99 @@
+<mat-card class="card">
+    <h1 class="title">Ficha Psicológica</h1>
+    <br><br>
+    <mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+    <div *ngIf="loading==false">
+        <div class="grid_container">
+            <div class="grid_margin">
+                <label class="subtitle1">Nombres: </label>
+                <label> {{child.firstName}}</label>
+                <br>
+                <label class="subtitle1">Apellido Paterno: </label>
+                <label> {{child.lastName}}</label>
+                <br>
+                <label class="subtitle1">Apellido Materno: </label>
+                <label> {{child.mothersLastName}}</label>
+                <br>
+                <label class="subtitle1">Fecha de Nacimiento: </label>
+                <label class="subtitle-space"> {{child.birthDate}}</label>
+            </div>
+            <div class="grid_margin">
+                <label class="subtitle1">Número de Orden: </label>
+                <label> {{child.numberOrder}}</label>
+                <br>
+                <label class="subtitle1">Edad en Meses: </label>
+                <label class="subtitle-space"> {{calculateAgeIntMonths()}}</label>
+            </div>
+            <div>
+                <label class="subtitle1">Folio: </label>
+                <label> {{child.folio}}</label>
+                <br>
+                <label class="subtitle1">Sexo: </label>
+                <label class="subtitle1-space"> {{child.sex}}</label>
+                <br>
+                <label class="subtitle1">Fecha de Entrevista: </label>
+                <label> {{child.date}}</label>
+            </div>
+        </div>
+        <br>
+        <div class="size_weight">
+            <label class="subtitle">ANTROPOMETRÍA</label>
+            <div class="grid_container_second">
+                <div class="size">
+                    <label class="subtitle1">Peso: </label>
+                    <label> {{child.weight}} </label>
+                    <label class="subtitle-space">Kg.</label>
+                </div>
+                <div>
+                    <label class="subtitle1">Talla: </label>
+                    <label> {{child.size}}</label>
+                    <label>cm.</label>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div *ngIf='child.totalA != undefined'>
+            <table mat table class="mat-elevation-z8">
+                <ng-container>
+                    <th>AREA </th>
+                    <th>PUNTAJE </th>
+                    <th>NIVEL </th>
+                </ng-container>
+                <ng-container>
+                    <tr>
+                        <td>Motricidad Gruesa</td>
+                        <td>{{child.totalA}}</td>
+                        <td>{{(levelItem(child.points, 'A', calculateAgeIntMonths()))}}</td>
+                    </tr>
+                    <tr>
+                        <td> Motricidad Fina</td>
+                        <td> {{child.totalB}}</td>
+                        <td>{{(levelItem(child.points, 'B', calculateAgeIntMonths()))}}</td>
+                    </tr>
+                    <tr>
+                        <td>Audición y Lenguaje</td>
+                        <td> {{child.totalC}}</td>
+                        <td>{{(levelItem(child.points, 'C', calculateAgeIntMonths()))}}</td>
+                    </tr>
+                    <tr>
+                        <td>Personal y Social</td>
+                        <td> {{child.totalD}}</td>
+                        <td>{{(levelItem(child.points, 'D', calculateAgeIntMonths()))}}</td>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td>Total</td>
+                        <td> {{(calculateTotal(child.totalA, child.totalB, child.totalC, child.totalD))}} </td>
+                        <td>{{(levelTotal(child.total, calculateAgeIntMonths()))}}</td>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="buttons">
+        <button class="button" mat-stroked-button (click)="editProgress(child)"
+            *ngIf="role=='psico'">Editar</button>
+        <button mat-stroked-button (click)="goToProfiles()" class="cancel_button">Volver</button>
+    </div>
+</mat-card>

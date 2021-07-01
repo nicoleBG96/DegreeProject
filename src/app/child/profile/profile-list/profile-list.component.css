@@ -1,0 +1,141 @@
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    color:  #1d1545;
+    text-align: center;
+}
+
+.add_content {
+    display: grid;
+    grid-template-columns: 70% 20%;
+}
+
+.subtitle {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.label {
+    font-family: "Arial", Gadget, sans-serif;
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+@media screen and (max-width: 900px){
+    .subtitle {
+        font-family: "Arial Black", Gadget, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+    }
+}
+
+.button {
+    size: 70px;
+    color:white;
+    background-color: #59c9a5 ;
+    margin-left: 75%;
+}
+
+.content_card {
+    display: grid;
+    grid-template-columns: 70% 20%;
+    margin-top: 10px;
+}
+
+.global-card {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 10px;
+    border: 2px solid #315172;
+}
+
+.toolbar {
+    height: 30px;
+    background-color: #315172;
+    color: white;
+    width: 100%;
+}
+
+.toolbar :hover{
+    background-color:#2b4764;
+}
+
+.toolbar-subtitle {
+    font-family: "Arial, Helvetica, sans-serif" ;
+    font-size: 15px;
+    font-weight: 200;
+}
+
+@media screen and (max-width: 1350px) {
+    .toolbar-subtitle {
+        font-family: "Arial, Helvetica, sans-serif" ;
+        font-size: 12px;
+        font-weight: 200;
+    }
+}
+
+.image {
+    margin-left: 50%;
+}
+
+.search_content {
+    margin-left: 50%;
+}
+
+.search {
+    height: 15%;
+    font-size: 20px;
+}
+
+.input {
+    width: 50%;
+    height: 30px;
+}
+
+.date {
+    margin-left: 67%;
+    width: 20%;
+}
+
+.material-icons.md-30 { font-size: 30px; } 
+
+.material-icons {
+    color: #315172;
+    font-size: 30px;
+}
+
+@media screen and (max-width: 300px){
+    .material-icons.md-30 { font-size: 15px; } 
+
+    .search {
+        height: 10%;
+        margin-left: 30%;
+        font-size: 15px;
+    }
+    
+    .input {
+        width: 10%;
+        height: 15%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .date {
+        margin-left: 75%;
+        width: 15%;
+    }
+}
+
+.mat-spinner {
+    margin-left: 45%;
+    margin-top: 5%;
+}
+
+.content {
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 46vh;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}

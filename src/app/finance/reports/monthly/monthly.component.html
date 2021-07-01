@@ -1,0 +1,45 @@
+<h1 class="title">Reporte Financiero</h1>
+<br>
+<button mat-stroked-button class="space" (click)="export()">Exportar
+    <i class="material-icons"> file_copy </i>
+</button>
+<br>
+<input matInput type="text" placeholder="Rango de fechas" style="width:340px" class="date" bsDaterangepicker
+    (bsValueChange)="filterByDate($event)" [(ngModel)]="filterDate" [bsConfig]="{showWeekNumbers:false, adaptivePosition: true, 
+    isAnimated:true, containerClass: 'theme-blue', dateInputFormat: 'MM-YYYY', startView:'year'}">
+<i class="material-icons md-30"> calendar_today</i>
+<br><br>
+<mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+<table mat table class="table" *ngIf="loading == false" scr>
+    <thead>
+        <th class="subtitle">Fecha</th>
+        <th class="subtitle">Descripcion</th>
+        <th class="totalAmount">Monto Ingreso</th>
+        <th class="totalAmount">Monto Egreso</th>
+        <th class="subtitle">Saldo</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let aux of monthlyList">
+            <td class="text">{{aux.date | date:'dd/MM/yyyy'}}</td>
+            <div *ngIf="aux.type == 'mensuality'">
+                <td class="text">{{aux.firstName}} {{aux.lastName}} pago {{aux.month}} {{aux.year}}</td>
+            </div>
+            <div *ngIf="aux.type != 'mensuality'">
+                <td class="text">{{aux.description}}</td>
+            </div>
+            <td *ngIf="aux.type != 'expense'" class="income">+ {{aux.amount}}</td>
+            <td *ngIf="aux.type != 'expense'"></td>
+            <td *ngIf="aux.type == 'expense'"></td>
+            <td *ngIf="aux.type == 'expense'" class="expense">- {{aux.amount}}</td>
+            <td></td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td class="total">Total</td>
+            <td></td>
+            <td class="totalIncome"> + {{totalIncome}}</td>
+            <td class="totalExpense">- {{totalExpense}}</td>
+            <td class="total">{{calculateBalance()}}</td>
+        </tr>
+    </tbody>
+</table>

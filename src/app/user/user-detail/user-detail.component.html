@@ -1,0 +1,26 @@
+<mat-card>
+    <h1>Usuario</h1>
+    <br>
+    <div class="content">
+        <label class="subtitle">Nombre:</label>
+        <label class="text">{{user.firstName}}</label>
+        <br>
+        <label class="subtitle">Apellido: </label>
+        <label class="text">{{user.lastName}}</label>
+        <br>
+        <label class="subtitle">Email:</label>
+        <label class="text">{{user.email}}</label>
+        <br>
+        <label class="subtitle">Cargo:</label>
+        <label class="text">{{user.position}}</label>
+        <br>
+        <label class="subtitle">Estado:</label>
+        <label class="text">{{getStatus(user)}}</label>
+        <button mat-stroked-button *ngIf="!user.isDisable" class="button"
+            (click)="status(user, true)">Habilitar</button>
+        <button mat-stroked-button *ngIf="user.isDisable" class="button_enable"
+            (click)="status(user, false)">Inhabilitar</button>
+    </div>
+    <br><br>
+    <button class="cancel_button" mat-raised-button (click)='goToUsers()'>Volver</button>
+</mat-card>

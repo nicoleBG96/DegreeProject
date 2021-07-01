@@ -1,0 +1,81 @@
+<mat-card class="card">
+    <h1 class="title">Ficha de Registro</h1>
+    <br>
+    <mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+    <div *ngIf="loading==false">
+        <img class="image" src="{{child.image}}" alt="" height="150" width="150">
+        <br>
+        <div class="grid_container">
+            <div>
+                <label class="subtitle1">Fecha de Admisión: </label>
+                <label> {{child.admissionDate}}</label>
+                <br><br>
+                <label class="subtitle">Identificación</label>
+                <br>
+                <label class="subtitle1">Nombres:</label>
+                <label> {{child.firstName}}</label>
+                <br>
+                <label class="subtitle1">Apellido Paterno: </label>
+                <label> {{child.lastName}}</label>
+                <br>
+                <label class="subtitle1">Apellido Materno: </label>
+                <label> {{child.mothersLastName}}</label>
+                <br>
+                <label class="subtitle1">Fecha de Nacimiento: </label>
+                <label class="subtitle1-space"> {{child.birthDate}}</label>
+                <br>
+                <label class="subtitle1">Sexo: </label>
+                <label class="subtitle1-space">{{child.sex}}</label>
+                <br><br><br>
+                <label class="subtitle">Información sobre el Ingreso</label>
+                <br>
+                <label class="subtitle1">Peso: </label>
+                <label> {{child.weight}}</label>
+                <label class="subtitle1-space">Kg.</label>
+                <br>
+                <label class="subtitle1">Talla</label>
+                <label>{{child.size}}</label>
+                <label class="subtitle1-space">cm.</label>
+            </div>
+            <div>
+                <label class="subtitle">Dirección</label>
+                <br>
+                <label class="subtitle1">Municipalidad:</label>
+                <label class="subtitle1-space"> {{child.municipality}}</label>
+                <br>
+                <label class="subtitle1">Cantón/Distrito: </label>
+                <label class="subtitle1-space"> {{child.district}}</label>
+                <br>
+                <label class="subtitle1">Zona: </label>
+                <label class="subtitle1-space"> {{child.zone}}</label>
+                <br>
+                <label class="subtitle1">Calle: </label>
+                <label class="subtitle1-space"> {{child.street}}</label>
+                <br><br><br>
+                <label class="subtitle">Datos del Padre o Tutor</label>
+                <br>
+                <label class="subtitle1">Nombre: </label>
+                <label class="subtitle1-space"> {{child.nameOfTutor}}</label>
+                <br>
+                <label class="subtitle1">Teléfono: </label>
+                <label class="subtitle1-space"> {{child.phone}}</label>
+                <br>
+                <label class="subtitle1">Grado de instrucción: </label>
+                <label class="subtitle1-space"> {{child.degreeOfInstruction}}</label>
+                <br>
+                <label class="subtitle1">Actividad: </label>
+                <label class="subtitle1-space"> {{child.activity}}</label>
+                <br>
+                <label class="subtitle1">Otra referencia: </label>
+                <label class="subtitle1-space"> {{child.anotherReference}}</label>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="buttons">
+        <button class="button" mat-stroked-button (click)="editRegister(child)"
+            *ngIf="role=='admin'">Editar</button>
+        <button class="cancel_button" mat-stroked-button (click)="goToProfiles()">Volver</button>
+        <br>
+    </div>
+</mat-card>

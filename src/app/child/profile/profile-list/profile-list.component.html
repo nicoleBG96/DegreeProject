@@ -1,0 +1,60 @@
+<h1 class="title"> Perfiles</h1>
+<br>
+<div class="add_content">
+  <div class="search_content">
+    <label class="search">Búsqueda: &nbsp;</label>
+    <input class="input" type="text" placeholder="Nombre,Apellido,sexo,edad" [(ngModel)]="searchQuery">
+    <i class="material-icons md-30 "> search</i>
+  </div>
+  <div>
+    <button mat-fab class="button" (click)="createChild()" *ngIf="role =='admin'">
+      <span class="material-icons"> person_add </span>
+    </button>
+  </div>
+</div>
+<br>
+<input type="text" placeholder="Rango de fechas" class="date" bsDaterangepicker (bsValueChange)="filterByDate($event)"
+  [(ngModel)]="filterDate"
+  [bsConfig]="{showWeekNumbers:false, adaptivePosition: true, isAnimated:true, containerClass: 'theme-blue', dateInputFormat: 'DD-MM-YYYY'}">
+<i class="material-icons md-30"> calendar_today</i>
+<br><br>
+<mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+<div *ngIf="loading==false" class="content">
+  <mat-card class="global-card"
+    *ngFor="let child of profileList | filter: {firstName:searchQuery,lastName:searchQuery, mothersLastName:searchQuery, sex:searchQuery, age:searchQuery} ">
+      <mat-toolbar class="toolbar">
+        <button mat-button class="toolbar-subtitle" (click)="goToProfile(child)" *ngIf="role!='cont'">Perfil</button>
+        <button mat-button class="toolbar-subtitle" (click)="registerProfile(child)" *ngIf="role!='cont'">Registro</button>
+        <button mat-button class="toolbar-subtitle" (click)="medicalRecordProfile(child)" *ngIf="role!='cont'">F. Médica</button>
+        <button mat-button class="toolbar-subtitle" (click)="progressProfile(child)"*ngIf="role!='cont'">Desarrollo</button>
+        <button mat-button class="toolbar-subtitle" (click)="goToMensualities(child)" *ngIf="role=='admin' || role=='cont'">Mensualidades</button>
+      </mat-toolbar>
+      <div class="content_card">
+        <div>
+          <label class="subtitle"> Apellido Paterno:</label>
+          <label class="label">{{child.lastName}}</label>
+          <br>
+          <label class="subtitle"> Apellido Materno:</label>
+          <label class="label">{{child.mothersLastName}}</label>
+          <br>
+          <label class="subtitle"> Nombres:</label>
+          <label class="label"> {{child.firstName}}</label>
+          <br>
+          <label class="subtitle">Fecha de Nacimiento: </label>
+          <label class="label"> {{child.birthDate | date:'dd - MM - yyyy'}}</label>
+          <br>
+          <label class="subtitle">Sexo: </label>
+          <label class="label"> {{child.sex}} </label>
+          <br>
+          <label class="subtitle">Fecha de Admisión:</label>
+          <label class="label"> {{child.admissionDate}}</label>
+          <br>
+          <label class="subtitle">Estado:</label>
+          <label class="label"> {{(getStatus(child))}}</label>
+        </div>
+        <div>
+          <img class="image" src="{{child.image}}" alt="" height="80" width="80">
+        </div>
+      </div>
+  </mat-card>
+</div>

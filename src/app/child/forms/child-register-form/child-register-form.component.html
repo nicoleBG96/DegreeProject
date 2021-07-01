@@ -1,0 +1,241 @@
+<mat-card class="card">
+    <mat-card-header>
+        <label class="title">Ficha de Registro</label>
+    </mat-card-header>
+    <mat-card-content>
+        <form #formNew="ngForm" novalidate>
+            <div class="grid_container">
+                <div class="grid_margin_left">
+                    <mat-label class="subtitle">Admisión</mat-label>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.admissionDate" type="date" name="admissionDate"
+                            #admissionDate="ngModel" id="admissionDate" matInput placeholder="Fecha de Admision">
+                    </mat-form-field>
+                    <br><br>
+                    <mat-label class="subtitle">Identificación</mat-label>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" type="text" name="firstName" id="firstName" #firstName="ngModel" required
+                            maxlength="30" [(ngModel)]="child.firstName" pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ]*$"
+                            matInput placeholder="Nombres">
+                    </mat-form-field>
+                    <br>
+                    <div *ngIf="(firstName.touched || firstName.dirty)  && !firstName.valid && firstName.errors"
+                        class="text-alert">
+                        <div *ngIf="firstName.errors.required">Se requiere nombre</div>
+                        <div *ngIf="firstName.errors.pattern">Este campo solo acepta letras</div>
+                    </div>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.lastName" type="text" name="lastName"
+                            #lastName="ngModel" id="lastName" maxlength="30" required
+                            pattern="^[a-zA-Z áéíóúäëïöüçñÁÉÍÓÚÄËÏÖÜÇÑ]*$" matInput placeholder="Apellido Paterno">
+                    </mat-form-field>
+                    <div *ngIf="(lastName.touched || lastName.dirty) && !lastName.valid && lastName.errors"
+                        class="text-alert">
+                        <div *ngIf="lastName.errors.required">Se requiere apellido paterno</div>
+                        <div *ngIf="lastName.errors.pattern">Este campo solo acepta letras</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.mothersLastName" type="text" name="mothersLastName"
+                            #mothersLastName="ngModel" id="mothersLastName" maxlength="30" required
+                            pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ]*$" matInput placeholder="Apellido Materno">
+                    </mat-form-field>
+                    <div *ngIf="(mothersLastName.touched || mothersLastName.dirty) && !mothersLastName.valid && mothersLastName.errors"
+                        class="text-alert">
+                        <div *ngIf="mothersLastName.errors.required">Se requiere apellido materno</div>
+                        <div *ngIf="mothersLastName.errors.pattern">Este campo solo acepta letras</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.birthDate" type="date" name="birthDate"
+                            #birthDate="ngModel" id="birthDate" matInput placeholder="Fecha de Nacimiento">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="text">
+                        <mat-label>Sexo</mat-label>
+                        <select matNativeControl required [(ngModel)]="child.sex" [ngModelOptions]="{standalone: true}">
+                            <option value="femenino">Femenino</option>
+                            <option value="masculino">Masculino</option>
+                        </select>
+                    </mat-form-field>
+                    <br>
+                    <mat-label class="subtitle">Información sobre el Ingreso</mat-label>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.size" type="text" name="size" #size="ngModel" id="size"
+                            maxlength="5" required pattern="^[0-9]+.[0-9]$" matInput placeholder="Talla cm (ejm 126.2)">
+                    </mat-form-field>
+                    <div *ngIf="(size.touched || size.dirty) && !size.valid && size.errors" class="text-alert">
+                        <div *ngIf="size.errors.required">Se requiere talla</div>
+                        <div *ngIf="size.errors.pattern">Patrón incorrecto</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.weight" type="text" name="weight" #weight="ngModel"
+                            id="weight" maxlength="5" required pattern="^[0-9]+[0-9]+.[0-9]$" matInput
+                            placeholder="Peso Kg (ejm 38.2)">
+                    </mat-form-field>
+                    <div *ngIf="(weight.touched || weight.dirty) && !weight.valid && weight.errors" class="text-alert">
+                        <div *ngIf="weight.errors.required">Se requiere peso</div>
+                        <div *ngIf="weight.errors.pattern">Patrón incorrecto</div>
+                    </div>
+                </div>
+                <div class="grid_margin_right">
+                    <div *ngIf="child.image =='' " class="photo-container">
+                        <img id="img" src="./assets/images/empty-image.png" alt="" height="150" width="150">
+                    </div>
+                    <div *ngIf="child.image !='' " class="photo-container">
+                        <img id="img" src="{{child.image}}" alt="" height="150" width="150">
+                    </div>
+                    <input class="photo-container" type="file" name="image" (change)="setImage($event)">
+                    <div *ngIf="child.image == ''" class="photo-container">
+                        <div class="text-alert"> Se requiere imagen</div>
+                    </div>
+                    <br><br>
+                    <mat-label class="subtitle">Dirección</mat-label>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.municipality" type="text" name="municipality"
+                            #municipality="ngModel" id="municipality" maxlength="30" required
+                            pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ]*$" matInput placeholder="Municipalidad">
+                    </mat-form-field>
+                    <div *ngIf="(municipality.touched || municipality.dirty) && !municipality.valid && municipality.errors"
+                        class="text-alert">
+                        <div *ngIf="municipality.errors.required">Se requiere municipalidad</div>
+                        <div *ngIf="municipality.errors.pattern">Este campo solo acepta letras</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.district" type="text" name="district"
+                            #district="ngModel" id="district" maxlength="30" required
+                            pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ #0-9]*$" matInput placeholder="Distrito">
+                    </mat-form-field>
+                    <div *ngIf="(district.touched || district.dirty) && !district.valid && district.errors"
+                        class="text-alert">
+                        <div *ngIf="district.errors.required">Se requiere distrito</div>
+                        <div *ngIf="district.errors.pattern">Este campo solo acepta letras y números</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.zone" type="text" name="zone" #zone="ngModel" id="zone"
+                            maxlength="30" required pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ]*$" matInput
+                            placeholder="Zona">
+                    </mat-form-field>
+                    <div *ngIf="(zone.touched || zone.dirty) && !zone.valid && zone.errors" class="text-alert">
+                        <div *ngIf="zone.errors.required">Se requiere zona</div>
+                        <div *ngIf="zone.errors.pattern">Este campo solo acepta letras</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.street" type="text" name="street" #street="ngModel"
+                            id="street" maxlength="30" required pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ #0-9]*$"
+                            matInput placeholder="Calle">
+                    </mat-form-field>
+                    <div *ngIf="(street.touched || street.dirty) && !street.valid && street.errors" class="text-alert">
+                        <div *ngIf="street.errors.required">Se requiere calle</div>
+                        <div *ngIf="street.errors.pattern">Este campo solo acepta letras y números</div>
+                    </div>
+                    <br>
+                    <mat-label class="subtitle">Información del Padre o Tutor</mat-label>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.nameOfTutor" type="text" name="nameOfTutor"
+                            #nameOfTutor="ngModel" id="nameOfTutor" maxlength="40" required
+                            pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ]*$" matInput placeholder="Nombre del tutor">
+                    </mat-form-field>
+                    <div *ngIf="(nameOfTutor.touched || nameOfTutor.dirty) && !nameOfTutor.valid && nameOfTutor.errors"
+                        class="text-alert">
+                        <div *ngIf="nameOfTutor.errors.required">Se requiere nombre del tutor</div>
+                        <div *ngIf="nameOfTutor.errors.pattern">Este campo solo acepta letras</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.phone" type="text" name="phone" #phone="ngModel"
+                            id="phone" maxlength="8" minlength="7" required pattern="^[0-9]*$" matInput
+                            placeholder="Teléfono">
+                    </mat-form-field>
+                    <div *ngIf="(phone.touched || phone.dirty) && !phone.valid && phone.errors" class="text-alert">
+                        <div *ngIf="phone.errors.required">Se requiere telefono</div>
+                        <div *ngIf="phone.errors.pattern">Este campo solo acepta números</div>
+                        <div *ngIf="phone.errors.minlength">Mínimo 7 números</div>
+                    </div>
+                    <br>
+                    <mat-form-field class="text">
+                        <mat-label>Grado de instrucción</mat-label>
+                        <select matNativeControl required [(ngModel)]="child.degreeOfInstruction"
+                            [ngModelOptions]="{standalone: true}">
+                            <option value=""></option>
+                            <option value="primaria">Primaria</option>
+                            <option value="secundaria">Secundaria</option>
+                            <option value="tecnicoSuperior">Técnico Superior</option>
+                            <option value="licenciado">Licenciado</option>
+                        </select>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="text">
+                        <mat-label>Ocupación</mat-label>
+                        <select matNativeControl required [(ngModel)]="child.activity"
+                            [ngModelOptions]="{standalone: true}">
+                            <option value=""></option>
+                            <option value="ocupado">Ocupado</option>
+                            <option value="desocupado">Desocupado</option>
+                        </select>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="text">
+                        <input class="input" [(ngModel)]="child.anotherReference" type="text" name="anotherReference"
+                            #anotherReference="ngModel" id="anotherReference" maxlength="40" required
+                            pattern="^[a-zA-Z ÁÉÍÓÚáéíóúÄËÏÖÜäëïöüÇçñÑ #0-9]*$" matInput placeholder="Otra referencia">
+                    </mat-form-field>
+                    <br>
+                </div>
+            </div>
+            <div class="compromise_grid">
+                <mat-label class="subtitle">Compromiso del padre o tutor</mat-label>
+                <br><br>
+                <mat-label class="option"> YO <input class="compromise" [(ngModel)]="child.nameOfTutor" type="text"
+                        name="nameOfTutor" #nameOfTutor="ngModel" id="nameOfTutor" matInput
+                        placeholder="Nombre del tutor">
+                    RESPONSABLE DEL NIÑO (A) INSCRITO (A), DECLARO
+                    ESTAR PLENAMENTE DE ACUERDO CON LOS OBJETIVOS Y METAS DEL CENTRO INFANTIL.</mat-label>
+                <br>
+                <mat-label class="rules">1. ENVIAR A MI (S) NIÑO (S) TODOS LOS DÍAS HÁBILES EN LOS HORARIOS
+                    ESTABLECIDOS EN EL
+                    CENTRO INFATIL.</mat-label>
+                <br>
+                <mat-label class="rules">2. CANCELAR LAS CUOTAS (CONTRIBUCIÓN) ESTABLECIDAS CADA MES.
+                </mat-label>
+                <br>
+                <mat-label class="rules">3. PARTICIPAR EN LAS REUNIONES Y OTRAS ACTIVIDADES DEL CENTRO INFANTIL.
+                </mat-label>
+                <br>
+                <mat-label class="rules">4. ENVIAR A MI (S) NIÑO (S) LIMPIO (S) Y CON UNA MUDA DE ROPA EXTRA.
+                </mat-label>
+                <br>
+                <mat-label class="rules">5. RECOGER A MI (S) NIÑO (S) EN EL HORARIO ESTABLECIDO. (EN CASO DE QUE
+                    UN NIÑO (A)
+                    NO SEA RECOGIDO DEL CENTRO INFANTIL SERA REMITIDO A LA DEFENSORÍA DE LA NIÑEZ Y
+                    ADOLESCENCIA.)</mat-label>
+                <br><br>
+                <mat-label class="option">ES DE MI CONOCIMIENTO QUE PARA EL ADECUADO DESARROLLO Y CRECIMIENTO DE
+                    MI HIJO (A), ES NECESARIO
+                    EL CONTROL Y SEGUIMIENTO SEMANAL Y MENSUAL, PARA PODER HACER LA EVALUACIÓN QUE AYUDARÁ A
+                    DETERMINAR LAS ACCIONES A
+                    SEGUIR CON HIJO (A).</mat-label>
+            </div>
+        </form>
+        <br>
+        <div class="buttons">
+            <button *ngIf="!isEdit" class="button" type="submit" mat-raised-button
+                (click)="save()">Guardar</button>
+            <button *ngIf="isEdit" class="button" type="submit" mat-raised-button 
+                (click)="edit(child)">Actualizar </button>
+            <button *ngIf="!isEdit" class="cancel_button" type="button" mat-raised-button 
+                (click)="goToProfiles()">Cancelar</button>
+            <button *ngIf="isEdit" class="cancel_button" type="button" mat-raised-button 
+                (click)="goToProfile()">Cancelar</button>
+        </div>
+    </mat-card-content>
+</mat-card>

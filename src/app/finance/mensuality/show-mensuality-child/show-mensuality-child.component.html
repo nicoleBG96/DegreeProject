@@ -1,0 +1,46 @@
+<h1 class="title">Registro Mensualidades</h1>
+<br>
+<button mat-stroked-button class="space" (click)="export()">Exportar
+    <i class="material-icons"> file_copy </i>
+</button>
+<button mat-fab class="button" (click)="createMensuality()" *ngIf="role =='admin'">
+    <i class="material-icons">add_circle_outline</i>
+</button>
+<br>
+<input type="text" placeholder="Rango de fechas" style="width:340px" class="date" bsDaterangepicker
+    (bsValueChange)="filterByDate($event)" [(ngModel)]="filterDate"
+    [bsConfig]="{showWeekNumbers:false, adaptivePosition: true, isAnimated:true, containerClass: 'theme-blue', dateInputFormat: 'DD-MM-YYYY'}">
+
+<i class="material-icons md-30"> calendar_today</i>
+<br><br>
+<mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+<table mat table class="table" *ngIf="loading == false">
+    <ng-container>
+        <th class="subtitle" scope="col">Fecha </th>
+        <th class="subtitle" scope="col">Nombre </th>
+        <th class="subtitle" scope="col">Mes </th>
+        <th class="subtitle" scope="col">Año</th>
+        <th class="totalMensuality" scope="col">Monto </th>
+    </ng-container>
+    <ng-container>
+        <tr *ngFor="let mensuality of mensualitiesList" class="table-Table">
+            <td class="text">{{mensuality.date | date:'dd-MM-yyyy'}}</td>
+            <td class="text">{{mensuality.lastName}} {{mensuality.mothersLastName}} {{mensuality.firstName}}</td>
+            <td class="text">{{mensuality.month}}</td>
+            <td class="text">{{mensuality.year}}</td>
+            <td class="mensuality">{{mensuality.amount}}</td>
+        </tr>
+    </ng-container>
+    <ng-container>
+        <tr>
+            <td class="result">Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="total">{{total}}</td>
+        </tr>
+    </ng-container>
+</table>
+<div class="space_button">
+    <button class="cancel_button" mat-stroked-button (click)="goToProfile()">Volver</button>
+</div>

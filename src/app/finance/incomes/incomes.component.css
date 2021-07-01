@@ -1,0 +1,82 @@
+.title {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 30px;
+    color:  #1d1545;
+    margin-left: 45%;
+}
+
+.subtitle {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    border-collapse: separate;
+    border-spacing: 30px;
+}
+
+.text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+}
+
+.text_expense {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: right;
+}
+
+table {
+    width: 60%;
+    text-align: left;
+    margin-left: 20%;
+    border-spacing: 10px 10px;
+    border: 4px solid #59c9a5; 
+    border-collapse: collapse;
+}
+
+th, td {
+    border: none;
+}
+
+.result {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.total {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.resultTitle {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
+    border-collapse: separate;
+    border-spacing: 30px;
+    text-align: center;
+}
+
+.date {
+    margin-left: 37%;
+    border: 1px solid black;
+}
+
+.space {
+    margin-left: 72%;
+    margin-right: 2%;
+    border: 1px solid #315172;
+    color: #315172;
+}
+
+.mat-spinner {
+    margin-left: 45%;
+    margin-top: 5%;
+}
+
+.amount {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+

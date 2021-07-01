@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="https://unpkg.com/ngx-bootstrap/datepicker/bs-datepicker.css">
+<h1 class="title">Registro Donaciones</h1>
+<br>
+<button mat-stroked-button class="space" (click)="export()">Exportar
+    <i class="material-icons"> file_copy </i>
+</button>
+<button mat-fab class="button" (click)="createDonation()" *ngIf="role=='admin'">
+    <i class="material-icons">add_circle_outline</i>
+</button>
+<br>
+<input type="text" placeholder="Rango de fechas" style="width:340px" class="date" bsDaterangepicker autocomplete="off"
+    (bsValueChange)="filterByDate($event)" [(ngModel)]="filterDate"
+    [bsConfig]="{showWeekNumbers:false, adaptivePosition: true, isAnimated:true, containerClass: 'theme-blue', dateInputFormat: 'MM-YYYY'}">
+<span class="material-icons md-30">date_range</span>
+<br><br>
+<mat-spinner *ngIf="loading" class="mat-spinner"></mat-spinner>
+<table mat table class="table" *ngIf="loading == false">
+    <thead>
+        <th class="subtitle" scope="col">Fecha </th>
+        <th class="subtitle" scope="col">Descripción </th>
+        <th class="totalDonation" scope="col">Monto </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let donation of donationsList">
+            <td class="text">{{donation.date | date:'dd-MM-yyyy'}}</td>
+            <td class="text">{{donation.description}}</td>
+            <td class="donation">{{donation.amount}}</td>
+        </tr>
+        <tr>
+            <td class="result">Total</td>
+            <td></td>
+            <td class="total">{{total}}</td>
+        </tr>
+    </tbody>
+</table>
