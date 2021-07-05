@@ -49,7 +49,7 @@ export class ShowRegisterFormComponent implements OnInit {
   }
 
   public editRegister(child: any): void {
-    this.childRegisterService.setCreatedObject(child);
+    this.childRegisterService.setRegisterObject(child);
     this.router.navigate(['child/editRegisterChild/' + this.childId]);
   }
 

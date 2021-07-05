@@ -19,7 +19,7 @@ export class EditMedicalRecordComponent implements OnInit {
     private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
-    this.child = this.childMedicalRecordService.getCreatedObject();
+    this.child = this.childMedicalRecordService.getMedicalRecordObject();
     this.route.paramMap.subscribe((paramMap: any) => {
       this.id = (paramMap.params.id);
       this.childMedicalRecordService.getChildMedicalRecordbyId(this.id).then(child => this.child = child);

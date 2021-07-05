@@ -6,6 +6,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 
 // Model
 import { DonationsModel } from '../models/donations.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class DonationService {
 
   constructor(private firebase: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  getDonations() {
+  public getDonations(): Observable<any[]> {
     return this.firebase.list('donations').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -26,7 +27,7 @@ export class DonationService {
       })));
   }
 
-  createDonation(donation: DonationsModel) {
+  public createDonation(donation: DonationsModel): void {
     this.firebase.list('donations').push(donation);
   }
 

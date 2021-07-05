@@ -7,6 +7,7 @@ import { AngularFireStorage } from 'angularfire2/storage';
 import * as fb from 'firebase';
 
 import { ProfileModel } from '../models/profile.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class ProfileService {
 
   constructor(private firebase: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  getProfile() {
+  public getProfile(): Observable<any[]> {
     return this.firebase.list('profiles').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -27,24 +28,24 @@ export class ProfileService {
       })));
   }
 
-  createProfile(profile: ProfileModel, id: any) {
+  public createProfile(profile: ProfileModel, id: any): void {
     this.firebase.list('profiles').update(id, profile);
   }
 
-  getProfilebyId(id: string) {
+  public getProfilebyId(id: string): Promise<any> {
     const ref = fb.database().ref('profiles');
     return ref.child(id).once('value').then((snapshot) => snapshot.val());
   }
 
-  updateProfile(id: string, profile: ProfileModel) {
+  public updateProfile(id: string, profile: ProfileModel): void {
     this.firebase.list('profiles').update(id, profile);
   }
 
-  getCreatedObject() {
+  public getProfileObject() {
     return this.createdObject;
   }
 
-  setCreatedObject(createdObject: any) {
+  public setProfileObject(createdObject: any): void {
     this.createdObject = createdObject;
   }
 

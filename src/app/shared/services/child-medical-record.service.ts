@@ -8,17 +8,18 @@ import * as fb from 'firebase';
 
 // Model
 import { ChildMedicalRecordModel } from '../models/child-medical-record.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChildMedicalRecordService {
   childList: AngularFireList<any>;
-  private createdObject: any;
+  private medicalRecordObject: any;
 
   constructor(private firebase: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  getChildMedicalRecord() {
+  public getChildMedicalRecord(): Observable<any[]> {
     return this.firebase.list('childrenMedical').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -28,24 +29,24 @@ export class ChildMedicalRecordService {
       })));
   }
 
-  createChildMedicalRecord(child: ChildMedicalRecordModel, id: any) {
+  public createChildMedicalRecord(child: ChildMedicalRecordModel, id: any): void {
     this.firebase.list('childrenMedical').update(id, child);
 }
 
-  getChildMedicalRecordbyId(id: string) {
+  public getChildMedicalRecordbyId(id: string): Promise<void> {
     const ref = fb.database().ref('childrenMedical');
     return ref.child(id).once('value').then((snapshot) => snapshot.val());
   }
 
-  updateChildMedicalRecord(id: string, child: ChildMedicalRecordModel) {
+  public updateChildMedicalRecord(id: string, child: ChildMedicalRecordModel): void {
     this.firebase.list('childrenMedical').update(id, child);
   }
 
-  getCreatedObject() {
-    return this.createdObject;
+  public getMedicalRecordObject() {
+    return this.medicalRecordObject;
   }
 
-  setCreatedObject(createdObject: any) {
-    this.createdObject = createdObject;
+  public setMedicalRecordObject(medicalRecordObject: any): void {
+    this.medicalRecordObject = medicalRecordObject;
   }
 }

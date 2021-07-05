@@ -8,17 +8,18 @@ import * as fb from 'firebase';
 
 // Model
 import { ChildProgressModel } from '../models/child-progress.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChildProgressService {
   childList: AngularFireList<any>;
-  private createdObject: any;
+  private progressObject: any;
 
   constructor(private firebase: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  getChildProgress() {
+  public getChildProgress(): Observable<any[]> {
     return this.firebase.list('childrenProgress').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -28,24 +29,24 @@ export class ChildProgressService {
       })));
   }
 
-  createChildProgress(child: ChildProgressModel, id: any) {
+  public createChildProgress(child: ChildProgressModel, id: any): void {
     this.firebase.list('childrenProgress').update(id, child);
   }
 
-  getChildProgressbyId(id: string) {
+  public getChildProgressbyId(id: string): Promise<void> {
     const ref = fb.database().ref('childrenProgress');
     return ref.child(id).once('value').then((snapshot) => snapshot.val());
   }
 
-  updateChildProgress(id: string, child: ChildProgressModel) {
+  public updateChildProgress(id: string, child: ChildProgressModel): void{
     this.firebase.list('childrenProgress').update(id, child);
   }
 
-  getCreatedObject() {
-    return this.createdObject;
+  public getProgressObject() {
+    return this.progressObject;
   }
 
-  setCreatedObject(createdObject: any) {
-    this.createdObject = createdObject;
+  public setProgressObject(progressObject: any) {
+    this.progressObject = progressObject;
   }
 }

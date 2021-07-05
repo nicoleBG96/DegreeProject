@@ -8,6 +8,7 @@ import * as fb from 'firebase';
 
 // model
 import { UserModel } from '../models/user.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class UserService {
     this.firebase.list('users').push(user);
   }
 
-  getUser() {
+  public getUser(): Observable<any[]> {
     return this.firebase.list('users').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -31,16 +32,16 @@ export class UserService {
       })));
   }
 
-  getUserByID(id: string) {
+  public getUserByID(id: string): Promise<any> {
     const ref = fb.database().ref('users');
     return ref.child(id).once('value').then((snapshot) => snapshot.val());
   }
 
-  updateUser(id: string, user: UserModel) {
+  public updateUser(id: string, user: UserModel): void {
     this.firebase.list('users').update(id, user);
   }
 
-  deleteUserById(id: string) {
+  public deleteUserById(id: string): void {
     this.firebase.list('users').remove(id);
   }
 

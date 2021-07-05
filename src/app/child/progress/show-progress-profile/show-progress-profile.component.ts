@@ -61,7 +61,7 @@ export class ShowProgressProfileComponent implements OnInit {
   }
 
   public editProgress(child: any): void {
-    this.childProgressService.setCreatedObject(child);
+    this.childProgressService.setProgressObject(child);
     this.router.navigate (['child/editProgress/' + this.childId]);
   }
 

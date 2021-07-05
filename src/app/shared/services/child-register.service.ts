@@ -8,6 +8,7 @@ import * as fb from 'firebase';
 
 // Model
 import { ChildRegisterModel } from '../models/child-register.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class ChildRegisterService {
   constructor(private firebase: AngularFireDatabase,
     private storage: AngularFireStorage) { }
 
-  getChild() {
+    public getChild(): Observable<any[]> {
     return this.firebase.list('children').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -30,19 +31,19 @@ export class ChildRegisterService {
       })));
   }
 
-  setCurrentImage(image: any) {
+  public setCurrentImage(image: any) {
     this.currentImage = image;
   }
 
-  fileReference(fileName: string) {
+  public fileReference(fileName: string) {
     return this.storage.ref(fileName);
   }
 
-  uploadPhoto(fileName: string, data: any) {
+  public uploadPhoto(fileName: string, data: any) {
     return this.storage.upload(fileName, data);
   }
 
-  chargePhoto(child: ChildRegisterModel, id: string) {
+  public chargePhoto(child: ChildRegisterModel, id: string): void {
     let resp = false;
     this.uploadPhoto(`${child.firstName + id}`, child.imageFile);
 
@@ -55,24 +56,24 @@ export class ChildRegisterService {
 
   }
 
-  createChild(child: ChildRegisterModel) {
+  public createChild(child: ChildRegisterModel): string{
     return this.firebase.list('children').push(child).key;
   }
 
-  getChildbyId(id: string) {
+  public getChildbyId(id: string): Promise<any> {
     const ref = fb.database().ref('children');
     return ref.child(id).once('value').then((snapshot) => snapshot.val());
   }
 
-  updateChild(id: string, child: ChildRegisterModel) {
+  public updateChild(id: string, child: ChildRegisterModel): void {
     this.firebase.list('children').update(id, child);
   }
 
-  getCreatedObject() {
+  public getRegisterObject() {
     return this.createdObject;
   }
 
-  setCreatedObject(createdObject: any) {
+  public setRegisterObject(createdObject: any) {
     this.createdObject = createdObject;
   }
 }
