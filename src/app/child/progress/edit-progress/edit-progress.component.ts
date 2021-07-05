@@ -12,11 +12,11 @@ import { ChildProgressModel } from '../../../shared/models/child-progress.model'
   styleUrls: ['./edit-progress.component.css']
 })
 export class EditProgressComponent implements OnInit {
-  child: any;
-  id: any;
+  public child: any;
+  private id: any;
 
-  constructor(private childProgressService: ChildProgressService, private router: Router, private route: ActivatedRoute,
-              private toastrService: ToastrService) { }
+  constructor(private childProgressService: ChildProgressService, private router: Router, 
+    private route: ActivatedRoute, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.child = this.childProgressService.getCreatedObject();
@@ -31,7 +31,7 @@ export class EditProgressComponent implements OnInit {
     });
   }
 
-  updateProgress(event: any) {
+  public updateProgress(event: any): void {
     if (event.age === 0) {
       event.pointA2 = 0;
       event.pointA3 = 0;
@@ -51,7 +51,7 @@ export class EditProgressComponent implements OnInit {
     }
   }
 
-  calculateAgeIntMonths() {
+  private calculateAgeIntMonths(): number {
     const today = new Date();
     const childBirth = new Date(this.child.birthDate);
     let months = (today.getFullYear() - childBirth.getFullYear()) * 12;
@@ -60,7 +60,7 @@ export class EditProgressComponent implements OnInit {
     return months;
   }
 
-  validate(event: any) {
+  private validate(event: any): boolean {
     let correct = true;
     const childProgress = new ChildProgressModel();
     childProgress.firstName = event.firstName;

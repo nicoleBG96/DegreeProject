@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -20,23 +20,15 @@ import { ProfileModel } from '../../../shared/models/profile.model';
   templateUrl: './child-register.component.html',
   styleUrls: ['./child-register.component.css']
 })
-export class ChildRegisterComponent implements OnInit {
+export class ChildRegisterComponent {
 
   constructor(private childRegisterService: ChildRegisterService, private router: Router,
     private childMedicalRecordService: ChildMedicalRecordService, private childProgressService: ChildProgressService,
-    private profileService: ProfileService, private toastrService: ToastrService,
-    private mensualityService: MensualityService) { }
+    private profileService: ProfileService, private toastrService: ToastrService) { }
 
-  ngOnInit() {
-  }
-
-  register(event: ChildRegisterModel) {
-    console.log(event);
-    if (this.validate(event)) {
-      // tslint:disable-next-line:prefer-const
+  public registerChild(event: ChildRegisterModel): void {
+    if (this.validateRegisterForm(event)) {
       const latestKey = this.childRegisterService.createChild(event);
-      console.log(latestKey);
-
       this.childRegisterService.chargePhoto(event, latestKey);
       setTimeout(() => {
         this.createMedicalRecord(event, latestKey);
@@ -51,8 +43,7 @@ export class ChildRegisterComponent implements OnInit {
     }
   }
 
-  createMedicalRecord(event: any, latestKey: any) {
-    // tslint:disable-next-line:prefer-const
+  private createMedicalRecord(event: any, latestKey: any): void {
     let medicalRecord = new ChildMedicalRecordModel();
     medicalRecord.firstName = event.firstName;
     medicalRecord.lastName = event.lastName;
@@ -63,8 +54,7 @@ export class ChildRegisterComponent implements OnInit {
     this.childMedicalRecordService.createChildMedicalRecord(event, latestKey);
   }
 
-  createProgress(event: any, latestKey: any) {
-    // tslint:disable-next-line:prefer-const
+  private createProgress(event: any, latestKey: any): void {
     let progress = new ChildProgressModel();
     progress.firstName = event.firstName;
     progress.lastName = event.lastName;
@@ -75,8 +65,7 @@ export class ChildRegisterComponent implements OnInit {
     this.childProgressService.createChildProgress(event, latestKey);
   }
 
-  createProfile(event: any, latestKey: any) {
-    // tslint:disable-next-line:prefer-const
+  private createProfile(event: any, latestKey: any): void {
     let profile = new ProfileModel();
     profile.firstName = event.firstName;
     profile.lastName = event.lastName;
@@ -89,7 +78,7 @@ export class ChildRegisterComponent implements OnInit {
     this.profileService.createProfile(event, latestKey);
   }
 
-  validate(event: any) {
+  private validateRegisterForm(event: any): boolean {
     let correct = true;
     if (event.firstName === '' || event.lastName === '' || event.mothersLastName === '' || event.admissionDate === null ||
       event.birthDate === null || event.sex === '' || event.size === '' || event.weight === '' || event.municipality === '' ||

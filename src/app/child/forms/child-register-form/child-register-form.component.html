@@ -89,7 +89,7 @@
                     <div *ngIf="child.image !='' " class="photo-container">
                         <img id="img" src="{{child.image}}" alt="" height="150" width="150">
                     </div>
-                    <input class="photo-container" type="file" name="image" (change)="setImage($event)">
+                    <input class="photo-container" type="file" name="image" (change)="chargeImage($event)">
                     <div *ngIf="child.image == ''" class="photo-container">
                         <div class="text-alert"> Se requiere imagen</div>
                     </div>
@@ -229,9 +229,9 @@
         <br>
         <div class="buttons">
             <button *ngIf="!isEdit" class="button" type="submit" mat-raised-button
-                (click)="save()">Guardar</button>
+                (click)="saveChildRegister()">Guardar</button>
             <button *ngIf="isEdit" class="button" type="submit" mat-raised-button 
-                (click)="edit(child)">Actualizar </button>
+                (click)="editChildRegister()">Actualizar </button>
             <button *ngIf="!isEdit" class="cancel_button" type="button" mat-raised-button 
                 (click)="goToProfiles()">Cancelar</button>
             <button *ngIf="isEdit" class="cancel_button" type="button" mat-raised-button 

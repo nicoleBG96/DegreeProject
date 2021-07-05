@@ -12,15 +12,13 @@ import { ChildMedicalRecordModel } from '../../../shared/models/child-medical-re
   styleUrls: ['./child-medical-record-form.component.css']
 })
 export class ChildMedicalRecordFormComponent implements OnInit {
-  myForm: FormGroup;
-  isEdit: boolean;
-  id: any;
-  age: any;
-  @Input() child: ChildMedicalRecordModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onEdit: EventEmitter<any>;
+  public myForm: FormGroup;
+  public isEdit: boolean;
+  public id: any;
+  public age: any;
+  @Input() public child: ChildMedicalRecordModel;
+  @Output() public onSubmit: EventEmitter<any>;
+  @Output() public onEdit: EventEmitter<any>;
 
   constructor( private router: Router, private route: ActivatedRoute) {
     this.onSubmit = new EventEmitter<any>();
@@ -36,7 +34,7 @@ export class ChildMedicalRecordFormComponent implements OnInit {
     }
   }
 
-  calculateAge(date: Date) {
+  public calculateAge(date: Date): number {
     const today = new Date();
     const childBirth = new Date(date);
     let age = today.getFullYear() - childBirth.getFullYear();
@@ -47,15 +45,15 @@ export class ChildMedicalRecordFormComponent implements OnInit {
     return age;
   }
 
-  saveMedicalRecord() {
+  public saveMedicalRecord(): void {
     this.onSubmit.emit(this.child);
   }
 
-  editMedicalRecord(child: ChildMedicalRecordModel) {
+  public editMedicalRecord(): void {
     this.onEdit.emit(this.child);
   }
 
-  goToProfiles() {
+  public goToProfiles(): void {
     this.route.paramMap.subscribe((paramMap: any) => {
       this.id = (paramMap.params.id);
     });

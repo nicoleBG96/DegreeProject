@@ -13,7 +13,6 @@ import { ChildRegisterComponent } from './register/child-register/child-register
 import { ChildRegisterFormComponent } from './forms/child-register-form/child-register-form.component';
 import { ChildMedicalRecordFormComponent } from './forms/child-medical-record-form/child-medical-record-form.component';
 import { ChildProgressFormComponent } from './forms/child-progress-form/child-progress-form.component';
-import { ChildsComponent } from './interfaces/childs/childs.component';
 import { ShowRegisterFormComponent } from './register/show-register-form/show-register-form.component';
 import { ShowMedicalRecordFormComponent } from './medicalRecord/show-medical-record-form/show-medical-record-form.component';
 import { ShowProgressProfileComponent } from './progress/show-progress-profile/show-progress-profile.component';
@@ -31,7 +30,6 @@ import {FilterPipe} from '../pipes/filter.pipe';
     ChildRegisterFormComponent,
     ChildMedicalRecordFormComponent,
     ChildProgressFormComponent,
-    ChildsComponent,
     ShowRegisterFormComponent,
     ShowMedicalRecordFormComponent,
     ShowProgressProfileComponent,
@@ -53,7 +51,6 @@ import {FilterPipe} from '../pipes/filter.pipe';
     ChildRegisterFormComponent,
     ChildMedicalRecordFormComponent,
     ChildProgressFormComponent,
-    ChildsComponent,
     ShowRegisterFormComponent,
     ShowMedicalRecordFormComponent,
     ShowProgressProfileComponent,

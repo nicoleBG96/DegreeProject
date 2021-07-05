@@ -19,12 +19,12 @@ export class ShowProgressProfileComponent implements OnInit {
   constructor(private childProgressService: ChildProgressService, private route: ActivatedRoute, 
     private router: Router,  private userService: UserService, private authService: AuthentificationService) { }
 
-  child = new ChildProgressModel();
-  childId: any;
-  userList: any = [];
-  role: any = {};
-  isDisable = false;
-  loading = false;
+  public child = new ChildProgressModel();
+  private childId: any;
+  private userList: any = [];
+  public role: any = {};
+  private isDisable = false;
+  public loading = false;
 
   ngOnInit() {
     this.loading = true;
@@ -32,17 +32,17 @@ export class ShowProgressProfileComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
       this.route.paramMap.subscribe((paramMap: any) => {
-      this.view(paramMap.params.id);
+      this.viewChild(paramMap.params.id);
     });
     }, 300);
   }
 
-  view(id: string) {
+  private viewChild(id: string): void {
     this.childId = id;
     this.childProgressService.getChildProgressbyId(id).then(child => this.child = child);
   }
 
-  calculateAgeIntMonths() {
+  public calculateAgeIntMonths(): number {
     const today = new Date();
     const childBirth = new Date(this.child.birthDate);
     let months = (today.getFullYear() - childBirth.getFullYear()) * 12;
@@ -51,7 +51,7 @@ export class ShowProgressProfileComponent implements OnInit {
     return months+1;
   }
 
-  calculateTotal(point1: string, point2: string, point3: string, point4: string) {
+  public calculateTotalPoints(point1: string, point2: string, point3: string, point4: string): string|number {
     if (point1 == null || point2 == null || point3 == null || point4 == null) {
       return 0;
     } else {
@@ -60,16 +60,16 @@ export class ShowProgressProfileComponent implements OnInit {
     }
   }
 
-  editProgress(child: any) {
+  public editProgress(child: any): void {
     this.childProgressService.setCreatedObject(child);
     this.router.navigate (['child/editProgress/' + this.childId]);
   }
 
-  goToProfiles() {
+  public goToProfiles(): void {
     this.router.navigate(['child/showProfile/' + this.childId]);
   }
 
-  async active() {
+  private async active(): Promise<void> {
     this.authService.getCurrentUser().pipe(
       tap(current => {
         if(current)
@@ -80,22 +80,7 @@ export class ShowProgressProfileComponent implements OnInit {
               {
                 if(element.isDisable)
                   this.isDisable = true;
-                switch (element.position) {
-                  case 'administrador':
-                    this.role = 'admin';
-                    break;
-                  case 'medico':
-                    this.role = 'med';
-                    break;
-                  case 'psicologo':
-                    this.role = 'psico';
-                    break;
-                  case 'contador':
-                    this.role = 'cont';
-                    break;
-                  default:
-                    break;
-                }
+                this.getRole(element.position);
               }
             });
           });
@@ -103,7 +88,11 @@ export class ShowProgressProfileComponent implements OnInit {
     ).subscribe();
   }
 
-  rangeAge(age:any) {
+  private getRole(position: string): String {
+    return (position === 'administrador') ? 'admin' : (position === 'medico') ? 'med' : (position === 'psiocolog') ? 'psico' : 'cont';
+  }
+
+  public rangeAge(age:any): string {
     let childAge = parseInt(age, 10);
     if(childAge>=1 && childAge<=3)
       return '1';
@@ -140,7 +129,7 @@ export class ShowProgressProfileComponent implements OnInit {
                   
   }
 
-  calculateLevel(age:any, points:any, item:string) {
+  public calculateLevel(age:any, points:any, item:string): string {
     if(this.rangeAge(age) == '1') {
       if(points>=0 && points<=1)
         return 'A';
@@ -584,44 +573,14 @@ export class ShowProgressProfileComponent implements OnInit {
     }
   }
 
-  levelItem(points:any, item:string, age: any) {
+  public levelItem(points:any, item:string, age: any): string {
     let level = this.calculateLevel(age,points,item);
-    switch (level) {
-      case 'A':
-        return "ALERTA";
-        break;
-      case 'ML':
-        return "MEDIO BAJO";
-        break;
-      case 'MH':
-        return "MEDIO ALTO";
-        break;
-      case  'H':
-        return "ALTO";
-        break;
-      default:
-        break;
-    }
+    return (level === 'A') ? 'ALERTA' : (level === 'ML') ? 'MEDIO BAJO' : (level === 'MH') ? 'MEDIO ALTO' : 'ALTO';
   }
 
-  levelTotal(points:any, age:any) {
+  public levelTotal(points:any, age:any): string {
     let level = this.calculateTotalLevel(age,points);
-    switch (level) {
-      case 'A':
-        return "ALERTA";
-        break;
-      case 'ML':
-        return "MEDIO BAJO";
-        break;
-      case 'MH':
-        return "MEDIO ALTO";
-        break;
-      case  'H':
-        return "ALTO";
-        break;
-      default:
-        break;
-    }
+    return (level === 'A') ? 'ALERTA' : (level === 'ML') ? 'MEDIO BAJO' : (level === 'MH') ? 'MEDIO ALTO' : 'ALTO';
   }
 
 }

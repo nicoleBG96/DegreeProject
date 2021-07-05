@@ -25,18 +25,18 @@
             <img src="{{profile.image}}" alt="" height="150" width="150">
             <br><br>
             <label class="subtitle">Estado: </label>
-            <label class="subtitle-space"> {{(getStatus(profile))}}</label>
+            <label class="subtitle-space"> {{(getStatusChild(profile))}}</label>
             <button mat-stroked-button class="button_enable" *ngIf="!profile.isDisable && role =='admin'"
-                (click)="status(profile, true)">Inhabilitar</button>
+                (click)="statusChild(profile, true)">Inhabilitar</button>
             <button mat-stroked-button class="button_enable" *ngIf="profile.isDisable && role =='admin'"
-                (click)="status(profile, false)">Habilitar</button>
+                (click)="statusChild(profile, false)">Habilitar</button>
         </div>
     </div>
     <br><br>
     <div class="buttons">
-        <button class="button" mat-stroked-button (click)="goToRegister(child)">Registro</button>
-        <button class="button" mat-stroked-button (click)="goToMedicalRecord(child)">Ficha Médica</button>
-        <button class="button" mat-stroked-button (click)="goToProgress(child)">Ficha Psicológica</button>
+        <button class="button" mat-stroked-button (click)="goToRegister()">Registro</button>
+        <button class="button" mat-stroked-button (click)="goToMedicalRecord()">Ficha Médica</button>
+        <button class="button" mat-stroked-button (click)="goToProgress()">Ficha Psicológica</button>
         <button class="button" mat-stroked-button (click)="goToMensualities(profile)" *ngIf="role=='admin'">Mensualidades</button>
         <button class="cancel_button" mat-stroked-button (click)="goToProfiles()">Volver</button>
     </div>

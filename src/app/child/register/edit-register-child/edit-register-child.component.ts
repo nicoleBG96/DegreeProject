@@ -14,12 +14,14 @@ import { ChildRegisterService } from '../../../shared/services/child-register.se
   styleUrls: ['./edit-register-child.component.css']
 })
 export class EditRegisterChildComponent implements OnInit {
-  child: any;
-  id: any;
+  public child: any;
+  private id: any;
 
-  constructor(private childRegisterService: ChildRegisterService, private router: Router, private route: ActivatedRoute,
-    private toastrService: ToastrService, private childProgressService: ChildProgressService,
-    private childMedicalRecordService: ChildMedicalRecordService, private profileService: ProfileService) { }
+  constructor(private childRegisterService: ChildRegisterService, private router: Router, 
+    private route: ActivatedRoute, private toastrService: ToastrService,
+    private childProgressService: ChildProgressService, 
+    private childMedicalRecordService: ChildMedicalRecordService, 
+    private profileService: ProfileService) { }
 
   ngOnInit() {
     this.child = this.childRegisterService.getCreatedObject();
@@ -29,8 +31,8 @@ export class EditRegisterChildComponent implements OnInit {
     });
   }
 
-  update(event: any) {
-    if (this.validate(event)) {
+  public updateRegisterForm(event: any): void {
+    if (this.validateRegisterForm(event)) {
       this.childRegisterService.updateChild(this.id, event);
       this.childProgressService.updateChildProgress(this.id, event);
       this.childMedicalRecordService.updateChildMedicalRecord(this.id, event);
@@ -42,7 +44,7 @@ export class EditRegisterChildComponent implements OnInit {
     }
   }
 
-  validate(event: any) {
+  private validateRegisterForm(event: any):boolean {
     let correct = true;
     if (event.firstName === '' || event.lastName === '' || event.mothersLastName === '' || event.admissionDate === null ||
       event.birthDate === null || event.sex === '' || event.size === '' || event.weight === '' || event.municipality === '' ||

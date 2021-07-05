@@ -35,45 +35,34 @@ export class ProfileListComponent implements OnInit {
     }, 500);
   }
 
-  calculateAge(date: Date) {
-    const today = new Date();
-    const childBirth = new Date(date);
-    let age = today.getFullYear() - childBirth.getFullYear();
-    const months = today.getMonth() - childBirth.getMonth();
-    if (months < 0 || (months === 0 && today.getDate() < childBirth.getDate())) {
-      age--;
-    }
-    return age;
-  }
-
-  registerProfile(childRegister: any) {
+  public registerProfile(childRegister: any): void {
     this.router.navigate(['child/showRegisterProfile/' + childRegister.key]);
   }
 
-  medicalRecordProfile(childMedicalRecord: any) {
+  public medicalRecordProfile(childMedicalRecord: any): void {
     this.router.navigate(['child/showMedicalRecordProfile/' + childMedicalRecord.key]);
   }
 
-  progressProfile(childProgress: any) {
+  public progressProfile(childProgress: any): void {
     this.router.navigate(['child/showProgressProfile/' + childProgress.key]);
   }
 
-  createChild() {
+  public createChild(): void {
     this.router.navigate(['child/registerChild']);
   }
 
-  goToProfile(childProfile: any) {
+  public goToProfile(childProfile: any): void {
     this.router.navigate(['child/showProfile/' + childProfile.key]);
   }
 
-  goToMensualities(child: any) {
+  public goToMensualities(child: any): void {
     let childId = child.key;
     this.profileService.updateProfile(childId, child);
     this.mensualityService.setMensuality(childId);
     this.router.navigate(['finances/showMensuality']);
   }
 
-  getStatus(child: any) {
+  public getStatusChild(child: any): string {
     if (child.isDisable) {
       return 'Inhabilitado';
     } else {
@@ -81,7 +70,7 @@ export class ProfileListComponent implements OnInit {
     }
   }
 
-  filterByDate(date?) {
+  public filterByDate(date?): void {
     if (date) {
       const startDate = date[0];
       const endDate = date[1];
@@ -100,7 +89,7 @@ export class ProfileListComponent implements OnInit {
     }
   }
 
-  async active() {
+  private async active(): Promise<void> {
     this.authService.getCurrentUser().pipe(
       tap(current => {
         if(current)
@@ -111,27 +100,16 @@ export class ProfileListComponent implements OnInit {
               {
                 if(element.isDisable)
                   this.isDisable = true;
-                switch (element.position) {
-                  case 'administrador':
-                    this.role = 'admin';
-                    break;
-                  case 'medico':
-                    this.role = 'med';
-                    break;
-                  case 'psicologo':
-                    this.role = 'psico';
-                    break;
-                  case 'contador':
-                    this.role = 'cont';
-                    break;
-                  default:
-                    break;
-                }
+                this.getRole(element.position);
               }
             });
           });
       })
     ).subscribe();
+  }
+
+  private getRole(position: string): String {
+    return (position === 'administrador') ? 'admin' : (position === 'medico') ? 'med' : (position === 'psiocolog') ? 'psico' : 'cont';
   }
 }
 
