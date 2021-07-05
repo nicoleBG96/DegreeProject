@@ -17,9 +17,9 @@
         <label class="subtitle">Estado:</label>
         <label class="text">{{getStatus(user)}}</label>
         <button mat-stroked-button *ngIf="!user.isDisable" class="button"
-            (click)="status(user, true)">Habilitar</button>
+            (click)="updateStatus(user, true)">Habilitar</button>
         <button mat-stroked-button *ngIf="user.isDisable" class="button_enable"
-            (click)="status(user, false)">Inhabilitar</button>
+            (click)="updateStatus(user, false)">Inhabilitar</button>
     </div>
     <br><br>
     <button class="cancel_button" mat-raised-button (click)='goToUsers()'>Volver</button>

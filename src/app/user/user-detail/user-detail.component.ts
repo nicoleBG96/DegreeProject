@@ -17,21 +17,21 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: any) => {
-      this.view(paramMap.params.id);
+      this.viewUser(paramMap.params.id);
     });
   }
 
-  view(id: string) {
+  public viewUser(id: string): void {
     this.userId = id;
     this.userService.getUserByID(id).then(user => this.user = user);
   }
 
-  status(event: any, state: boolean) {
+  public updateStatus(event: any, state: boolean): void {
     event.isDisable = state;
     this.userService.updateUser(this.userId, event);
   }
 
-  getStatus(event: any) {
+  public getStatus(event: any): string {
     if (event.isDisable) {
       return 'Habilitado';
     } else {
@@ -39,7 +39,7 @@ export class UserDetailComponent implements OnInit {
     }
   }
 
-  goToUsers() {
+  public goToUsers(): void {
     this.router.navigate(['users/userList']);
   }
 }

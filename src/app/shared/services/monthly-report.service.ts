@@ -9,15 +9,15 @@ export class MonthlyReportService {
 
   constructor(private firebase: AngularFireDatabase) { }
 
-  getMonthly() {
+  public getMonthly() {
     return this.financesMonthlyList;
   }
 
-  createFinancesReport(monthly: any) {
+  public createFinancesReport(monthly: any): void {
     this.financesMonthlyList.push(monthly)
   }
 
-  resetFinanceReport() {
+  public resetFinanceReport(): void {
     this.financesMonthlyList = [];
   }
 }

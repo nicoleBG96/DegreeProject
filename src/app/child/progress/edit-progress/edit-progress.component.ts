@@ -19,7 +19,7 @@ export class EditProgressComponent implements OnInit {
     private route: ActivatedRoute, private toastrService: ToastrService) { }
 
   ngOnInit() {
-    this.child = this.childProgressService.getCreatedObject();
+    this.child = this.childProgressService.getProgressObject();
     this.route.paramMap.subscribe((paramMap: any) => {
       this.id = (paramMap.params.id);
       this.childProgressService.getChildProgressbyId(this.id).then(child => this.child = child);

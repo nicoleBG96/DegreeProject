@@ -9,15 +9,15 @@ export class IncomesService {
 
   constructor(private firebase: AngularFireDatabase) { }
 
-  getIncomes() {
+  public getIncomes() {
     return this.incomesList;
   }
 
-  createIncomesReport(incomes: any) {
+  public createIncomesReport(incomes: any): void {
     this.incomesList.push(incomes);
   }
 
-  resetFinanceReport() {
+  public resetFinanceReport(): void {
     this.incomesList = [];
   }
 }

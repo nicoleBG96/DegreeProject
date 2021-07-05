@@ -23,18 +23,18 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  changePosition(event: any) {
+  public getStatus(event: any): string {
     if(event.isDisable == false)
       return 'Inhabilitado';
     else
       return 'Habilitado';
   }
 
-  goToDetail(event: any) {
+  public goToDetail(event: any): void {
     this.router.navigate(['users/user/'+ event.key]);
   }
 
-  deleteUser(event: any){
+  public deleteUser(event: any): void {
     this.userService.deleteUserById(event.key);
   }
 

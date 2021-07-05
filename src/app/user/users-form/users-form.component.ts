@@ -16,10 +16,9 @@ import { Router } from '@angular/router';
 })
 export class UsersFormComponent implements OnInit {
 
-  myForm: FormGroup;
-  @Input() user: UserModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
+  public myForm: FormGroup;
+  @Input() public user: UserModel;
+  @Output() public onSubmit: EventEmitter<any>;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) {
     this.onSubmit = new EventEmitter <any>();
@@ -29,11 +28,11 @@ export class UsersFormComponent implements OnInit {
     this.user = new UserModel();
   }
 
-  save() {
+  public saveUser(): void {
     this.onSubmit.emit(this.user);
   }
 
-  goToLogin() {
+  public goToLogin(): void {
     this.router.navigate(['auth/login']);
   }
 

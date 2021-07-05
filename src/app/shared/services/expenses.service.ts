@@ -5,6 +5,7 @@ import {AngularFireList} from 'angularfire2/database';
 import { AngularFireStorage } from 'angularfire2/storage';
 
 import { ExpensesModel } from '../models/expenses.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ExpensesService {
 
   constructor(private firebase: AngularFireDatabase, private storage: AngularFireStorage) { }
 
-  getExpenses() {
+  public getExpenses(): Observable<any[]> {
     return this.firebase.list('expenses').snapshotChanges().pipe(
       map(action => action.map(data => {
         return {
@@ -25,7 +26,7 @@ export class ExpensesService {
       })));
   }
 
-  createExpense(expenses: ExpensesModel) {
+  public createExpense(expenses: ExpensesModel): void {
     this.firebase.list('expenses').push(expenses);
   }
 }

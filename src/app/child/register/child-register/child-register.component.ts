@@ -35,7 +35,7 @@ export class ChildRegisterComponent {
         this.createProgress(event, latestKey);
         this.createProfile(event, latestKey);
       }, 5000);
-      this.childRegisterService.setCreatedObject(event);
+      this.childRegisterService.setRegisterObject(event);
       this.router.navigate(['child/showRegisterProfile/' + latestKey]);
       this.toastrService.success('exito al registrar', 'ÉXITO');
     } else {

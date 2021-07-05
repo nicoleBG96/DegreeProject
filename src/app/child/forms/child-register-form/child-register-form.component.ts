@@ -48,7 +48,7 @@ export class ChildRegisterFormComponent implements OnInit {
 
   public editChild(child: ChildRegisterModel): void {
     if (this.isEdit) {
-      this.receivedObject = this.childRegisterService.setCreatedObject(child);
+      this.receivedObject = this.childRegisterService.setRegisterObject(child);
     }
   }
 

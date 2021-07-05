@@ -56,7 +56,7 @@ export class ShowMedicalRecordFormComponent implements OnInit {
   }
 
   public editMedicalRecord(child: any): void {
-    this.childMedicalRecordService.setCreatedObject(child);
+    this.childMedicalRecordService.setMedicalRecordObject(child);
     this.router.navigate (['child/editMedicalRecord/' + this.childId]);
   }
 
