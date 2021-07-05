@@ -22,7 +22,7 @@ export class RegisterUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  register(user: UserModel) {
+  public registerUser(user: UserModel): void {
     if (this.validateUser(user)) {
       this.userService.createUser(user);
       this.authService.register(user);
@@ -33,7 +33,7 @@ export class RegisterUserComponent implements OnInit {
     }
   }
 
-  validateUser(user: any) {
+  public validateUser(user: any): boolean {
     let correct = true;
     if (user.firstName === '' || user.lastName === '' || user.email === '' || user.password === '' || user.position === '')
       correct = false;
