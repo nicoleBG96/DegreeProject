@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-wrapper',
   templateUrl: './wrapper.component.html',
   styleUrls: ['./wrapper.component.css']
 })
-export class WrapperComponent implements OnInit {
+export class WrapperComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
