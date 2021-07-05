@@ -15,36 +15,35 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./show-profile.component.css']
 })
 export class ShowProfileComponent implements OnInit {
-  profile = new ProfileModel();
-  childId: any;
-  userList: any = [];
-  role: any = {};
-  isDisable = false;
+  public profile = new ProfileModel();
+  private childId: any;
+  private userList: any = [];
+  public role: any = {};
+  private isDisable = false;
 
-  constructor(private profileService: ProfileService, private route: ActivatedRoute, private router: Router,
-    private mensualityService: MensualityService, private userService: UserService, private authService: AuthentificationService) { }
+  constructor(private profileService: ProfileService, private route: ActivatedRoute, 
+    private router: Router, private mensualityService: MensualityService, 
+    private userService: UserService, private authService: AuthentificationService) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: any) => {
-      this.view(paramMap.params.id);
+      this.viewChild(paramMap.params.id);
     });
     this.active();
   }
 
-  
-
-  view(id: string) {
+  private viewChild(id: string) {
     this.childId = id;
     this.profileService.getProfilebyId(id).then(child => this.profile = child);
 
   }
 
-  status(child: any, state: boolean) {
+  public statusChild(child: any, state: boolean): void {
     child.isDisable = state;
     this.profileService.updateProfile(this.childId, child);
   }
 
-  getStatus(child: any) {
+  public getStatusChild(child: any) : string{
     if (child.isDisable) {
       return 'Inhabilitado';
     } else {
@@ -52,30 +51,30 @@ export class ShowProfileComponent implements OnInit {
     }
   }
 
-  goToProfiles() {
+  public goToProfiles(): void {
     this.router.navigate(['child/profiles']);
   }
 
-  goToRegister(child: any) {
+  public goToRegister(): void {
     this.router.navigate(['child/showRegisterProfile/' + this.childId]);
   }
 
-  goToMedicalRecord(child: any) {
+  public goToMedicalRecord(): void {
     this.router.navigate(['child/showMedicalRecordProfile/' + this.childId]);
   }
 
-  goToProgress(child: any) {
+  public goToProgress(): void {
     this.router.navigate(['child/showProgressProfile/' + this.childId]);
   }
 
-  goToMensualities(child: any) {
+  public goToMensualities(child: any): void {
     child.isPayMensuality = true;
     this.profileService.updateProfile(this.childId, child);
     this.mensualityService.setMensuality(this.childId);
     this.router.navigate(['finances/showMensuality']);
   }
 
-  async active() {
+  private async active(): Promise<void> {
     this.authService.getCurrentUser().pipe(
       tap(current => {
         if(current)
@@ -86,26 +85,15 @@ export class ShowProfileComponent implements OnInit {
               {
                 if(element.isDisable)
                   this.isDisable = true;
-                switch (element.position) {
-                  case 'administrador':
-                    this.role = 'admin';
-                    break;
-                  case 'medico':
-                    this.role = 'med';
-                    break;
-                  case 'psicologo':
-                    this.role = 'psico';
-                    break;
-                  case 'contador':
-                    this.role = 'cont';
-                    break;
-                  default:
-                    break;
-                }
+                this.getRole(element.position);
               }
             });
           });
       })
     ).subscribe();
+  }
+
+  private getRole(position: string): String {
+    return (position === 'administrador') ? 'admin' : (position === 'medico') ? 'med' : (position === 'psiocolog') ? 'psico' : 'cont';
   }
 }

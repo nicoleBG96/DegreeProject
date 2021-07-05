@@ -20,12 +20,12 @@ export class ShowMedicalRecordFormComponent implements OnInit {
   constructor(private childMedicalRecordService: ChildMedicalRecordService, private route: ActivatedRoute, 
     private router: Router, private userService: UserService, private authService: AuthentificationService) { }
 
-  child = new ChildMedicalRecordModel();
-  childId: any;
-  userList: any = [];
-  role: any = {};
-  isDisable = false;
-  loading = false;
+  public child = new ChildMedicalRecordModel();
+  private childId: any;
+  private userList: any = [];
+  public role: any = {};
+  private isDisable = false;
+  public loading = false;
 
   ngOnInit() {
     this.loading=true;
@@ -33,18 +33,18 @@ export class ShowMedicalRecordFormComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
       this.route.paramMap.subscribe((paramMap: any) => {
-        this.view(paramMap.params.id);
+        this.viewChild(paramMap.params.id);
       });
     }, 300);
     
   }
 
-  view(id: string) {
+  private viewChild(id: string): void {
     this.childId = id;
     this.childMedicalRecordService.getChildMedicalRecordbyId(id).then(child => this.child = child);
   }
 
-  calculateAge() {
+  public calculateAge(): number {
     const today = new Date();
     const childBirth = new Date(this.child.birthDate);
     let age = today.getFullYear() - childBirth.getFullYear();
@@ -55,16 +55,16 @@ export class ShowMedicalRecordFormComponent implements OnInit {
     return age;
   }
 
-  editMedicalRecord(child: any) {
+  public editMedicalRecord(child: any): void {
     this.childMedicalRecordService.setCreatedObject(child);
     this.router.navigate (['child/editMedicalRecord/' + this.childId]);
   }
 
-  goToProfiles() {
+  public goToProfiles(): void {
     this.router.navigate(['child/showProfile/' + this.childId]);
   }
 
-  async active() {
+  private async active(): Promise<void> {
     this.authService.getCurrentUser().pipe(
       tap(current => {
         if(current)
@@ -75,26 +75,15 @@ export class ShowMedicalRecordFormComponent implements OnInit {
               {
                 if(element.isDisable)
                   this.isDisable = true;
-                switch (element.position) {
-                  case 'administrador':
-                    this.role = 'admin';
-                    break;
-                  case 'medico':
-                    this.role = 'med';
-                    break;
-                  case 'psicologo':
-                    this.role = 'psico';
-                    break;
-                  case 'contador':
-                    this.role = 'cont';
-                    break;
-                  default:
-                    break;
-                }
+                this.getRole(element.position);
               }
             });
           });
       })
     ).subscribe();
+  }
+
+  private getRole(position: string): String {
+    return (position === 'administrador') ? 'admin' : (position === 'medico') ? 'med' : (position === 'psiocolog') ? 'psico' : 'cont';
   }
 }

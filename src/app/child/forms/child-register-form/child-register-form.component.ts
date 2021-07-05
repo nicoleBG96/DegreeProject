@@ -14,16 +14,14 @@ import { ChildRegisterModel } from '../../../shared/models/child-register.model'
   styleUrls: ['./child-register-form.component.css']
 })
 export class ChildRegisterFormComponent implements OnInit {
-  myForm: FormGroup;
-  isEdit: boolean;
+  public myForm: FormGroup;
+  public isEdit: boolean;
   private receivedObject: any;
-  @Input() child: ChildRegisterModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onEdit: EventEmitter<any>;
-  file: File;
-  id: any;
+  @Input() public child: ChildRegisterModel;
+  @Output() public onSubmit: EventEmitter<any>;
+  @Output() public onEdit: EventEmitter<any>;
+  public file: File;
+  public id: any;
 
   constructor(private childRegisterService: ChildRegisterService, private router: Router, private route: ActivatedRoute) {
     this.onSubmit = new EventEmitter<any>();
@@ -31,7 +29,6 @@ export class ChildRegisterFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.child)
     if (!this.child) {
       this.child = new ChildRegisterModel();
       this.isEdit = false;
@@ -40,28 +37,26 @@ export class ChildRegisterFormComponent implements OnInit {
     }
   }
 
-  save() {
+  public saveChildRegister(): void {
     console.log("SAVE", this.isEdit);
     this.onSubmit.emit(this.child);
   }
 
-  edit(child: any) {
-    console.log("EDIT");
+  public editChildRegister(): void {
     this.onEdit.emit(this.child);
   }
 
-  editChild(child: ChildRegisterModel) {
+  public editChild(child: ChildRegisterModel): void {
     if (this.isEdit) {
       this.receivedObject = this.childRegisterService.setCreatedObject(child);
     }
   }
 
-  setImage(event) {
+  public chargeImage(event): boolean {
     var mimeType = event.target.files[0].type;
     if (mimeType.match(/image\/*/) == null) {
       return;
     }
-
     var reader = new FileReader();
     this.child.imageFile = event.target.files[0];
     reader.readAsDataURL(event.target.files[0]);
@@ -71,11 +66,11 @@ export class ChildRegisterFormComponent implements OnInit {
     return true;
   }
 
-  goToProfiles() {
+  public goToProfiles(): void {
     this.router.navigate(['/child/profiles'])
   }
 
-  goToProfile() {
+  public goToProfile(): void {
     this.route.paramMap.subscribe((paramMap: any) => {
       this.id = (paramMap.params.id);
     });

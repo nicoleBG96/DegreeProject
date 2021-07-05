@@ -12,11 +12,11 @@ import { ChildMedicalRecordModel } from '../../../shared/models/child-medical-re
   styleUrls: ['./edit-medical-record.component.css']
 })
 export class EditMedicalRecordComponent implements OnInit {
-  child: any;
-  id: any;
+  public child: any;
+  private id: any;
 
-  constructor(private childMedicalRecordService: ChildMedicalRecordService, private route: ActivatedRoute, private router: Router,
-              private toastrService: ToastrService) { }
+  constructor(private childMedicalRecordService: ChildMedicalRecordService, 
+    private route: ActivatedRoute, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.child = this.childMedicalRecordService.getCreatedObject();
@@ -31,7 +31,7 @@ export class EditMedicalRecordComponent implements OnInit {
     });
   }
 
-  updateMedicalRecord(event: any) {
+  public updateMedicalRecord(event: any) {
     if (this.validate(event)) {
       this.childMedicalRecordService.updateChildMedicalRecord(this.id, event);
       this.router.navigate(['child/showMedicalRecordProfile/' + this.id]);
@@ -41,7 +41,7 @@ export class EditMedicalRecordComponent implements OnInit {
     }
   }
 
-  calculateAge() {
+  private calculateAge(): number {
     const today = new Date();
     const childBirth = new Date(this.child.birthDate);
     let age = today.getFullYear() - childBirth.getFullYear();
@@ -52,7 +52,7 @@ export class EditMedicalRecordComponent implements OnInit {
     return age;
   }
 
-  validate(event: any) {
+  private validate(event: any): boolean {
     let correct = true;
     const childMedical = new ChildMedicalRecordModel();
     childMedical.firstName = event.firstName;

@@ -12,14 +12,12 @@ import { ChildProgressModel } from '../../../shared/models/child-progress.model'
   styleUrls: ['./child-progress-form.component.css']
 })
 export class ChildProgressFormComponent implements OnInit {
-  myForm: FormGroup;
-  isEdit: boolean;
-  id: any;
-  @Input() child: ChildProgressModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onEdit: EventEmitter<any>;
+  public myForm: FormGroup;
+  public isEdit: boolean;
+  public id: any;
+  @Input() public child: ChildProgressModel;
+  @Output() public onSubmit: EventEmitter<any>;
+  @Output() public onEdit: EventEmitter<any>;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.onSubmit = new EventEmitter<any>();
@@ -35,15 +33,15 @@ export class ChildProgressFormComponent implements OnInit {
     }
   }
 
-  saveProgress() {
+  public saveProgress(): void {
     this.onSubmit.emit(this.child);
   }
 
-  editProgress(child: ChildProgressModel) {
+  public editProgress(child: ChildProgressModel): void {
     this.onEdit.emit(this.child);
   }
 
-  calculateTotalPartial(point1: string, point2: string, point3: string) {
+  public calculateTotalPartial(point1: string, point2: string, point3: string): number {
     if (point1 == null || point2 == null || point3 == null) {
       return 0;
     } else {
@@ -51,30 +49,27 @@ export class ChildProgressFormComponent implements OnInit {
     }
   }
 
-  calculateTotal(total: string, point1: string, point2: string, point3: string) {
-    switch (total) {
-      case 'A':
-        this.child.totalA = (this.calculateTotalPartial(point1, point2, point3));
-        return this.child.totalA = parseFloat((this.child.totalA / 3).toFixed());
-        break;
-      case 'B':
+  public calculateTotal(total: string, point1: string, point2: string, point3: string): number {
+    if (total === 'A') {
+      this.child.totalA = (this.calculateTotalPartial(point1, point2, point3));
+      return this.child.totalA = parseFloat((this.child.totalA / 3).toFixed());
+    } else {
+      if (total === 'B') {
         this.child.totalB = (this.calculateTotalPartial(point1, point2, point3));
         return this.child.totalB = parseFloat((this.child.totalB / 3).toFixed());
-        break;
-      case 'C':
-        this.child.totalC = (this.calculateTotalPartial(point1, point2, point3));
-        return this.child.totalC = parseFloat((this.child.totalC / 3).toFixed());
-        break;
-      case 'D':
-        this.child.totalD = (this.calculateTotalPartial(point1, point2, point3));
+      } else {
+        if (total === 'C') {
+          this.child.totalC = (this.calculateTotalPartial(point1, point2, point3));
+          return this.child.totalC = parseFloat((this.child.totalC / 3).toFixed());
+        } else {
+          this.child.totalD = (this.calculateTotalPartial(point1, point2, point3));
         return this.child.totalD = parseFloat((this.child.totalD / 3).toFixed());
-        break;
-      default:
-        break;
+        }
+      }
     }
   }
 
-  calculateAgeIntMonths() {
+  public calculateAgeIntMonths(): number {
     const today = new Date();
     const childBirth = new Date(this.child.birthDate);
     let months = (today.getFullYear() - childBirth.getFullYear()) * 12;
@@ -83,7 +78,7 @@ export class ChildProgressFormComponent implements OnInit {
     return months+1;
   }
 
-  goToProfile() {
+  public goToProfile(): void {
     this.route.paramMap.subscribe((paramMap: any) => {
       this.id = (paramMap.params.id);
     });
