@@ -16,12 +16,12 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./donations-list.component.css']
 })
 export class DonationsListComponent implements OnInit {
-  donationsList: any[];
-  total = 0;
-  loading = false;
-  userList: any = [];
-  role: any = {};
-  isDisable = false;
+  public donationsList: any[];
+  public total = 0;
+  public loading = false;
+  private userList: any = [];
+  public role: any = {};
+  private isDisable = false;
 
   constructor(private donationService: DonationService, private route: Router, private exportService: ExportService,
     private userService: UserService, private authService: AuthentificationService) { }
@@ -37,11 +37,11 @@ export class DonationsListComponent implements OnInit {
     }, 500);
   }
 
-  createDonation() {
+  public createDonation(): void {
     this.route.navigate(['finances/registerDonation']);
   }
 
-  filterByDate(date?) {
+  public filterByDate(date?): void {
     this.total = 0;
     if (date) {
       const startDate = date[0];
@@ -65,7 +65,7 @@ export class DonationsListComponent implements OnInit {
     }
   }
 
-  export() {
+  public export(): void {
     const donationsAux: any = [];
     let donationAux: any = {};
     let totalDonation: any = {};
@@ -83,16 +83,7 @@ export class DonationsListComponent implements OnInit {
     }, 2000);
   }
 
-  changeHeaders(donation: any) {
-    let donationAux: any = {};
-    donationAux = {};
-    donationAux.Fecha = donation.date;
-    donationAux.Descripcion = donation.description;
-    donationAux.Monto = donation.amount;
-    return donationAux;
-  }
-
-  async active() {
+  private async active(): Promise<void> {
     this.authService.getCurrentUser().pipe(
       tap(current => {
         if(current)
@@ -103,26 +94,15 @@ export class DonationsListComponent implements OnInit {
               {
                 if(element.isDisable)
                   this.isDisable = true;
-                switch (element.position) {
-                  case 'administrador':
-                    this.role = 'admin';
-                    break;
-                  case 'medico':
-                    this.role = 'med';
-                    break;
-                  case 'psicologo':
-                    this.role = 'psico';
-                    break;
-                  case 'contador':
-                    this.role = 'cont';
-                    break;
-                  default:
-                    break;
-                }
+                this.getRole(element.position);
               }
             });
           });
       })
     ).subscribe();
+  }
+
+  private getRole(position: string): String {
+    return (position === 'administrador') ? 'admin' : (position === 'medico') ? 'med' : (position === 'psiocolog') ? 'psico' : 'cont';
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,15 +11,12 @@ import { ExpensesService } from '../../../shared/services/expenses.service';
   templateUrl: './register-expenses.component.html',
   styleUrls: ['./register-expenses.component.css']
 })
-export class RegisterExpensesComponent implements OnInit {
+export class RegisterExpensesComponent {
 
   constructor(private expensesService: ExpensesService, private router: Router, private toastrService: ToastrService) { }
 
-  ngOnInit() {
-  }
-
-  registerExpenses(event: ExpensesModel) {
-    if (this.validate(event)) {
+  public registerExpenses(event: ExpensesModel): void {
+    if (this.validateExpenseForm(event)) {
       this.expensesService.createExpense(event);
       this.router.navigate(['/finances/showExpenses']);
       this.toastrService.success('exito al registrar', 'ÉXITO');
@@ -28,12 +25,11 @@ export class RegisterExpensesComponent implements OnInit {
     }
   }
 
-  validate(event: any) {
+  private validateExpenseForm(event: any): boolean {
     let correct = true;
     if (event.date === null || event.amount === '' || event.description === '' || event.date === undefined) {
       correct = false;
     }
     return correct;
   }
-
 }

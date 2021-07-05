@@ -14,11 +14,10 @@ import { DonationService } from '../../../shared/services/donation.service';
   styleUrls: ['./donation-form.component.css']
 })
 export class DonationFormComponent implements OnInit {
-  myForm: FormGroup;
+  public myForm: FormGroup;
 
-  @Input() donation: DonationsModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
+  @Input() public donation: DonationsModel;
+  @Output() public onSubmit: EventEmitter<any>;
 
   constructor(private donationService: DonationService, private formBuilder: FormBuilder, 
     private router: Router) {
@@ -29,11 +28,11 @@ export class DonationFormComponent implements OnInit {
     this.donation = new DonationsModel();
   }
 
-  saveDonation() {
+  public saveDonation(): void {
     this.onSubmit.emit(this.donation);
   }
 
-  goToDonations() {
+  public goToDonations(): void {
     this.router.navigate(['finances/showDonations']);
   }
 

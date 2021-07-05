@@ -12,11 +12,10 @@ import { ExpensesService } from '../../../shared/services/expenses.service';
   styleUrls: ['./expenses-form.component.css']
 })
 export class ExpensesFormComponent implements OnInit {
-  myForm: FormGroup;
+  public myForm: FormGroup;
 
-  @Input() expenses: ExpensesModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
+  @Input() public expenses: ExpensesModel;
+  @Output() public onSubmit: EventEmitter<any>;
 
   constructor(private expensesService: ExpensesService, private formBuilder: FormBuilder,
     private router: Router) { 
@@ -27,11 +26,11 @@ export class ExpensesFormComponent implements OnInit {
     this.expenses = new ExpensesModel();
   }
 
-  saveExpenses() {
+  public saveExpenses(): void {
     this.onSubmit.emit(this.expenses);
   }
 
-  goToExpenses() {
+  public goToExpenses(): void {
     this.router.navigate(['/finances/showExpenses']);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,15 +11,12 @@ import { MensualityService } from '../../../shared/services/mensuality.service';
   templateUrl: './register-mensuality.component.html',
   styleUrls: ['./register-mensuality.component.css']
 })
-export class RegisterMensualityComponent implements OnInit {
+export class RegisterMensualityComponent {
 
   constructor(private mensualityService: MensualityService, private router: Router, private toastrService: ToastrService) { }
 
-  ngOnInit() {
-  }
-
-  registerMensuality(event: MensualityModel) {
-    if(this.validate (event)) {
+  public registerMensuality(event: MensualityModel): void {
+    if(this.validateMensualityForm (event)) {
       const latestKey = this.mensualityService.createMensuality(event);
       this.router.navigate(['finances/showMensuality/' + latestKey]);
       this.toastrService.success('exito al registrar', 'ÉXITO');
@@ -28,7 +25,7 @@ export class RegisterMensualityComponent implements OnInit {
     }
   }
 
-  validate(event: MensualityModel) {
+  private validateMensualityForm(event: MensualityModel): boolean {
     let correct = true;
     if (event.firstName === '' || event.lastName === '' || event.mothersLastName === '' || 
     event.month === '' || event.month === undefined || event.amount === '' || event.amount === undefined 

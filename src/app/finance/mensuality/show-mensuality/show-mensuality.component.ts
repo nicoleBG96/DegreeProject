@@ -12,10 +12,10 @@ import { MensualityModel } from '../../../shared/models/mensuality.model';
   styleUrls: ['./show-mensuality.component.css']
 })
 export class ShowMensualityComponent implements OnInit {
-  mensualityID: any;
-  mensuality= new MensualityModel();
-  childID: any;
-  loading = false;
+  private mensualityID: any;
+  public mensuality= new MensualityModel();
+  private childID: any;
+  public loading = false;
 
   constructor(private mensualityService: MensualityService, private router: Router, private route: ActivatedRoute) { }
 
@@ -25,24 +25,23 @@ export class ShowMensualityComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
       this.route.paramMap.subscribe((paramMap: any) => {
-        this.view(paramMap.params.id);
+        this.viewMensuality(paramMap.params.id);
       });
     }, 500);
   }
 
-  view(id: string) {
+  private viewMensuality(id: string): void {
     this.mensualityID = id;
-    console.log(this.mensualityID)
     this.mensualityService.getMensualitybyId(id).then(child => this.mensuality = child);
     this.childID = this.mensualityService.getChildKey()
   }
 
-  goToMensualities() {
+  public goToMensualities(): void {
     this.mensualityService.setMensuality(this.childID);
     this.router.navigate(['finances/showMensuality']);
   }
 
-  goToProfile() {
+  public goToProfile(): void {
     this.mensualityService.setMensuality(this.childID);
     this.router.navigate(['child/showProfile/' + this.childID]);
   }

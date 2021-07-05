@@ -13,11 +13,10 @@ import { MensualityModel } from '../../../shared/models/mensuality.model';
   styleUrls: ['./mensuality-form.component.css']
 })
 export class MensualityFormComponent implements OnInit {
-  myForm: FormGroup;
+  public myForm: FormGroup;
 
-  @Input() mensuality: MensualityModel;
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output() onSubmit: EventEmitter<any>;
+  @Input() public mensuality: MensualityModel;
+  @Output() public onSubmit: EventEmitter<any>;
 
   constructor(private mensualityService: MensualityService, private formBuilder: FormBuilder, 
     private profileService: ProfileService, private router: Router) {
@@ -37,11 +36,11 @@ export class MensualityFormComponent implements OnInit {
     });
   }
 
-  saveMensuality() {
+  public saveMensuality(): void {
     this.onSubmit.emit(this.mensuality);
   }
 
-  goToProfile() {
+  public goToProfile(): void {
     const childKey = this.mensualityService.getChildKey();
     this.router.navigate(['finances/showMensuality']);
   }
