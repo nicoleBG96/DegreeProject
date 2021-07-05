@@ -10,10 +10,10 @@ import { MensualityService } from 'src/app/shared/services/mensuality.service';
   styleUrls: ['./incomes.component.css']
 })
 export class IncomesComponent implements OnInit {
-  incomeList: any = [];
-  totalIncome = 0;
-  filterDate: any;
-  loading = false;
+  public incomeList: any = [];
+  public totalIncome = 0;
+  public filterDate: any;
+  public loading = false;
 
   constructor(private mensualityService: MensualityService, private incomesService: IncomesService,
     private donationService: DonationService, private exportService: ExportService) { }
@@ -35,7 +35,7 @@ export class IncomesComponent implements OnInit {
     }, 300);
   }
 
-  registerMensuality() {
+  private registerMensuality(): void {
     this.mensualityService.getMensualities().subscribe(item => {
       this.incomeList = item;
       this.incomeList.forEach(element => {
@@ -44,7 +44,7 @@ export class IncomesComponent implements OnInit {
     });
   }
 
-  registerDonations() {
+  private registerDonations(): void {
     this.donationService.getDonations().subscribe(item => {
       this.incomeList = item;
       this.incomeList.forEach(element => {
@@ -53,7 +53,7 @@ export class IncomesComponent implements OnInit {
     })
   }
 
-  filterByDate(date?) {
+  public filterByDate(date?): void {
     this.totalIncome = 0;
     if (date) {
       const startDate = date[0];
@@ -75,7 +75,7 @@ export class IncomesComponent implements OnInit {
     }
   }
 
-  export() {
+  public export(): void {
     const incomeAux: any = [];
     let elementAux: any = {};
     let totalIncome: any = {};

@@ -14,13 +14,13 @@ import { UserService } from 'src/app/shared/services/user.service';
   styleUrls: ['./mensuality-list.component.css']
 })
 export class MensualityListComponent implements OnInit {
-  mensualitiesList: any[];
-  total = 0;
-  loading = false;
-  loadingButton  = false;
-  userList: any = [];
-  role: any = {};
-  isDisable = false;
+  public mensualitiesList: any[];
+  public total = 0;
+  public loading = false;
+  public loadingButton  = false;
+  private userList: any = [];
+  public role: any = {};
+  private isDisable = false;
 
   constructor(private mensualityService: MensualityService, private router: Router, private exportService: ExportService,
     private userService: UserService, private authService: AuthentificationService) { }
@@ -36,11 +36,11 @@ export class MensualityListComponent implements OnInit {
     }, 500);
   }
 
-  goToMensuality(mensuality: any) {
+  public goToMensuality(mensuality: any): void {
     this.router.navigate(['finances/showMensuality/' + mensuality.key]);
   }
 
-  filterByDate(date?) {
+  public filterByDate(date?): void {
     this.total = 0;
     if (date) {
       const startDate = date[0];
@@ -64,7 +64,7 @@ export class MensualityListComponent implements OnInit {
     }
   }
 
-  export() {
+  public export(): void {
     const mensualitiesAux: any = [];
     let mensualityAux: any = {};
     let totalMensuality: any = {};
@@ -85,14 +85,14 @@ export class MensualityListComponent implements OnInit {
     }, 2000);
   }
 
-  createMensuality() {
+  public createMensuality(): void {
     this.loadingButton = true;
     setTimeout(() => {
       this.router.navigate(['child/profiles']);
     }, 300);
   }
 
-  async active() {
+  private async active(): Promise<void> {
     this.authService.getCurrentUser().pipe(
       tap(current => {
         if(current)
@@ -103,22 +103,7 @@ export class MensualityListComponent implements OnInit {
               {
                 if(element.isDisable)
                   this.isDisable = true;
-                switch (element.position) {
-                  case 'administrador':
-                    this.role = 'admin';
-                    break;
-                  case 'medico':
-                    this.role = 'med';
-                    break;
-                  case 'psicologo':
-                    this.role = 'psico';
-                    break;
-                  case 'contador':
-                    this.role = 'cont';
-                    break;
-                  default:
-                    break;
-                }
+                this.getRole(element.position);
               }
             });
           });
@@ -126,4 +111,7 @@ export class MensualityListComponent implements OnInit {
     ).subscribe();
   }
 
+  private getRole(position: string): String {
+    return (position === 'administrador') ? 'admin' : (position === 'medico') ? 'med' : (position === 'psiocolog') ? 'psico' : 'cont';
+  }
 }

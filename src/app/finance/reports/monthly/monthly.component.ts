@@ -12,11 +12,11 @@ import { ExportService } from '../../../shared/services/export.service';
   styleUrls: ['./monthly.component.css']
 })
 export class MonthlyComponent implements OnInit {
-  monthlyList: any = [];
-  totalExpense = 0;
-  totalIncome = 0;
-  filterDate: any;
-  loading = false;
+  public monthlyList: any = [];
+  public totalExpense = 0;
+  public totalIncome = 0;
+  public filterDate: any;
+  public loading = false;
 
   constructor(private mensualityService: MensualityService, private monthlyService: MonthlyReportService, private expenseService: ExpensesService,
     private donationService: DonationService, private exportService: ExportService) { }
@@ -42,7 +42,7 @@ export class MonthlyComponent implements OnInit {
     }, 500);
   }
 
-  registerMensuality() {
+  private registerMensuality(): void {
     this.monthlyList = [];
     this.mensualityService.getMensualities().subscribe(item => {
       this.monthlyList = item;
@@ -52,7 +52,7 @@ export class MonthlyComponent implements OnInit {
     });
   }
 
-  registerExpense() {
+  private registerExpense(): void {
     this.monthlyList = [];
     this.expenseService.getExpenses().subscribe(item => {
       this.monthlyList = item;
@@ -62,7 +62,7 @@ export class MonthlyComponent implements OnInit {
     })
   }
 
-  registerDonations() {
+  private registerDonations(): void {
     this.monthlyList = [];
     this.donationService.getDonations().subscribe(item => {
       this.monthlyList = item;
@@ -72,20 +72,12 @@ export class MonthlyComponent implements OnInit {
     })
   }
 
-  calculateBalance() {
+  public calculateBalance(): number {
     let balance = this.totalIncome - this.totalExpense;
     return balance
   }
 
-  isExpense(aux: any) {
-    let type = false;
-    if (aux.type === 'expense')
-      type = true;
-    else type = false
-    return type;
-  }
-
-  filterByDate(date?) {
+  public filterByDate(date?): void {
     this.totalExpense = 0;
     this.totalIncome = 0;
     if (date) {
@@ -113,7 +105,7 @@ export class MonthlyComponent implements OnInit {
     }
   }
 
-  export() {
+  public export(): void {
     const monthlyAux: any = [];
     let elementAux: any = {};
     let totalMonthly: any = {};
